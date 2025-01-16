@@ -100,7 +100,7 @@ export const navLinks = [
       title: 'WeatherApp - Current weather information for any city',
       desc: 'This weather app provides users with current weather information for any city they search for. It fetches real-time data from the OpenWeatherMap API and displays essential weather details, including temperature, humidity, wind speed, and weather conditions.',
       subdesc:
-        't fetches real-time data from the OpenWeatherMap API and displays essential weather details, including temperature, humidity, wind speed, and weather conditions. The app also visually represents the weather through corresponding icons.',
+        'It fetches real-time data from the OpenWeatherMap API and displays essential weather details, including temperature, humidity, wind speed, and weather conditions. The app also visually represents the weather through corresponding icons.',
       href: 'https://weather-app-nu-virid-64.vercel.app/',
       texture: '/textures/project/project3.mp4',
       logo: '/assets/project-logo3.png',
