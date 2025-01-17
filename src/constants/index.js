@@ -153,7 +153,7 @@ export const navLinks = [
         {
           id: 1,
           name: 'HTML5',
-          path: '/assets/html-5.svg',
+          path: '/assets/html-5.png',
         },
         {
           id: 2,
@@ -185,7 +185,7 @@ export const navLinks = [
         {
           id: 1,
           name: 'HTML5',
-          path: '/assets/html-5.svg',
+          path: '/assets/html-5.png',
         },
         {
           id: 2,
