@@ -31,7 +31,7 @@ const About = () => {
                         <img src="/assets/grid2.png" alt="grid-2" className="w-full sm:w-[276px] h-fit object-contain" />
                         <div>
                             <p className="grid-headtext">Tech Stack</p>
-                            <p className="grid-subtext">Specializing in JavaScript, with a strong emphasis on the React, Node.js, and 3.js ecosystems, I excel at creating dynamic, scalable, and interactive web applications.</p>
+                            <p className="grid-subtext">Specializing in JavaScript, with emphasis on the React, Node.js, and 3.js ecosystems, I excel at creating dynamic, scalable, and interactive web applications.</p>
                         </div>
                     </div>
                 </div>
