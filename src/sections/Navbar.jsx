@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { navLinks } from '../constants';
 
+
 const NavItems = ({ onClick = () => {} }) => (
   <ul className="nav-ul">
     {navLinks.map((item) => (
