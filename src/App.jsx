@@ -11,11 +11,19 @@ const App = () => {
   return (
     <main className='max-w-7xl mx-auto'>
       <Navbar />
-      <Hero />
-      <About />
-      <Projects />
-      <Contact />
-      <Footer/>
+      <section id="home">
+        <Hero />
+      </section>
+      <section id="about">
+        <About />
+      </section>
+      <section id="work">
+        <Projects />
+      </section>
+      <section id="contact">
+        <Contact />
+      </section>
+      <Footer />
     </main>
   )
 }
