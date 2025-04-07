@@ -102,7 +102,7 @@ export const navLinks = [
       desc: 'Chatopia is a real-time chat application designed to provide seamless communication between users with an intuitive interface and robust backend functionality',
       subdesc:
         'Built using modern web technologies, Chatopia focuses on delivering a fast, secure, and user-friendly chatting experience ',
-      href: 'https://chatopia-oo7i.onrender.com',
+      href: 'https://chatopia-frontend-black.vercel.app/',
       texture: '/textures/project/project3.mp4',
       logo: '/assets/project-logo3.png',
       logoStyle: {
