@@ -1,10 +1,21 @@
 import { useGLTF, useTexture } from '@react-three/drei';
+import { useEffect } from 'react';
 
-export function HackerRoom(props) {
-  const { nodes, materials } = useGLTF('/models/hacker-room.glb');
+const HackerRoom = (props) => {
+  const { nodes, materials } = useGLTF('models/hacker-room.glb');
 
   const monitortxt = useTexture('textures/desk/monitor.png');
   const screenTxt = useTexture('textures/desk/screen.png');
+
+  useEffect(() => {
+    console.log('HackerRoom loaded:', { nodes, materials });
+  }, [nodes, materials]);
+
+  // Check if nodes and materials are loaded
+  if (!nodes || !materials) {
+    console.log('HackerRoom: nodes or materials not loaded yet');
+    return null;
+  }
 
   return (
     <group {...props} dispose={null}>
@@ -30,7 +41,7 @@ export function HackerRoom(props) {
       <mesh geometry={nodes.table_table_mat_0_12.geometry} material={materials.key_mat} />
     </group>
   );
-}
+};
 
-useGLTF.preload('/models/hacker-room.glb');
+useGLTF.preload('models/hacker-room.glb');
 export default HackerRoom;

@@ -1,4 +1,8 @@
-import Globe from "react-globe.gl"
+import { Canvas } from '@react-three/fiber'
+import { Suspense } from 'react'
+import { PerspectiveCamera, OrbitControls } from '@react-three/drei'
+import DesktopComputer from "../components/DesktopComputer"
+import CanvasLoader from "../components/CanvasLoader"
 import Button from "../components/Button"
 import { useState } from "react"
 
@@ -38,23 +42,20 @@ const About = () => {
                 <div className="col-span-1 xl:row-span-4">
                     <div className="grid-container">
                         <div className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
-                            <Globe
-                                height={326}
-                                width={326}
-                                backgroundColor="rgba(0,0,0,0)"
-                                backgroundImageOpacity={0.5}
-                                showAtmosphere
-                                showGraticules
-                                globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-                                bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-                                labelsData={[{
-                                    lat: 30.3165,
-                                    lng: 78.0322,
-                                    text: "I'm here",
-                                    color: 'white',
-                                    size: 30,
-                                }]}
-                            />
+                            <Canvas>
+                                <Suspense fallback={<CanvasLoader />}>
+                                    <PerspectiveCamera makeDefault position={[0, 0.3, 1.5]} />
+                                    <DesktopComputer 
+                                        position={[0, 0, 0]}
+                                        scale={[1, 1, 1]}
+                                        rotation={[0, 0, 0]}
+                                    />
+                                    <ambientLight intensity={1.5} />
+                                    <directionalLight position={[10, 10, 10]} intensity={1} />
+                                    <pointLight position={[0, 5, 5]} intensity={0.5} />
+                                    <OrbitControls enableZoom={true} enablePan={true} enableRotate={true} />
+                                </Suspense>
+                            </Canvas>
                         </div>
                         <div>
                             <p className="grid-headtext">I can work remotely across most timezones.
@@ -79,8 +80,8 @@ const About = () => {
                         <div className="space-y-2">
                             <p className=" grid-subtext text-center">Contact me</p>
                             <div className="copy-container" onClick={handleCopy}>
-                                <img src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
-                                <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">ritik.kaintura007@gmail</p>
+                                <img src={hasCopied ? '/assets/tick.svg' : '/assets/copy.svg'} alt="copy" />
+                                <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">ritik.kaintura007@gmail.com</p>
 
                             </div>
                             </div> 
