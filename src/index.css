@@ -15,6 +15,19 @@
   --gradient: from-[#BEC1CF] via-[#D5D8EA] to-[#D5D8EA];
 }
 
+/* Ensure all content stays within the viewport horizontally */
+html, body, #root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Prevent media from causing horizontal overflow */
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+}
+
 * {
   scroll-behavior: smooth;
 }
@@ -70,19 +83,42 @@ body {
   }
 
   .nav-ul {
-    @apply flex flex-col items-center gap-4 sm:flex-row md:gap-6 relative z-20;
+    @apply flex flex-col items-center gap-4 sm:flex-row md:gap-8 relative z-20;
   }
 
   .nav-li {
-    @apply text-neutral-400 hover:text-white font-generalsans max-sm:hover:bg-black-500 max-sm:w-full max-sm:rounded-md py-2 max-sm:px-5;
+    @apply font-generalsans max-sm:w-full max-sm:rounded-md py-2 max-sm:px-5 relative;
   }
 
   .nav-li_a {
-    @apply text-lg md:text-base hover:text-white transition-colors;
+    @apply text-lg md:text-base transition-all duration-300 relative inline-block;
+    color: var(--text-secondary);
+  }
+
+  .nav-li_a:hover {
+    color: var(--text-primary);
+    transform: translateY(-2px);
+  }
+
+  .nav-li_a-scrolled {
+    @apply text-white;
+  }
+
+  .nav-li_a-scrolled:hover {
+    @apply text-cyan-400;
+  }
+
+  .nav-underline {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300;
+    background: linear-gradient(90deg, #00ffff, #9333ea, #ff0080);
+  }
+
+  .nav-li_a:hover .nav-underline {
+    @apply w-full;
   }
 
   .nav-sidebar {
-    @apply absolute left-0 right-0 bg-black-200 backdrop-blur-sm transition-all duration-300 ease-in-out overflow-hidden z-20 mx-auto sm:hidden block;
+    @apply absolute left-0 right-0 transition-all duration-500 ease-in-out overflow-hidden z-20 mx-auto sm:hidden block;
   }
 
   .text-gray_gradient {
@@ -123,6 +159,35 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* Improved Hero Typography Hierarchy */
+  .hero-name {
+    @apply text-center xl:text-8xl lg:text-7xl md:text-6xl sm:text-5xl text-4xl font-generalsans font-black !leading-tight;
+    color: var(--text-primary);
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  }
+
+  .hero-title {
+    @apply text-center xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl text-xl font-generalsans font-semibold !leading-tight;
+    color: var(--text-primary);
+  }
+
+  .hero-description {
+    @apply text-lg sm:text-xl md:text-2xl font-generalsans font-normal !leading-relaxed;
+    color: var(--text-secondary);
+  }
+
+  .cta-button {
+    @apply transform transition-all duration-300 ease-in-out;
+    background: linear-gradient(135deg, var(--accent), var(--text-primary));
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .cta-button:hover {
+    @apply scale-105;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+    filter: brightness(1.1);
   }
 
   /* about section */
@@ -344,6 +409,39 @@ body {
   }
 }
 
+@keyframes neon-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.3),
+                0 0 10px rgba(0, 255, 255, 0.2),
+                0 0 15px rgba(0, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6),
+                0 0 20px rgba(0, 255, 255, 0.4),
+                0 0 30px rgba(0, 255, 255, 0.2);
+  }
+}
+
+@keyframes cyberpunk-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes matrix-rain {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
 @keyframes slide-in-left {
   from {
     transform: translateX(-100%);
@@ -384,6 +482,21 @@ body {
 
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-neon-glow {
+  animation: neon-glow 2s ease-in-out infinite;
+}
+
+.animate-cyberpunk-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 255, 0.4),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: cyberpunk-shimmer 3s ease-in-out infinite;
 }
 
 .animate-slide-in-left {
@@ -433,4 +546,200 @@ body {
 ::-moz-selection {
   background: var(--accent);
   color: var(--text-primary);
+}
+
+/* ============================================
+   ENHANCED ANIMATIONS & TRANSITIONS
+   ============================================ */
+
+/* Enhanced transitions for all interactive elements */
+button, a, input, textarea {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+}
+
+/* Glow animation keyframes */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.5),
+                0 0 10px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8),
+                0 0 30px rgba(0, 255, 255, 0.5);
+  }
+}
+
+.glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Scale in animation */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.scale-in {
+  animation: scaleIn 0.5s ease-out forwards;
+}
+
+/* Pulse animation for attention */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Enhanced focus states with glow */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.3),
+              0 0 20px rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.8);
+}
+
+/* Backdrop blur enhancement */
+.backdrop-blur-enhanced {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* Gradient text animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-animate {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Underline animation for links */
+.nav-underline {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00FFFF, #9333EA, #FF0080);
+  transition: width 0.3s ease;
+}
+
+.nav-li_a:hover .nav-underline {
+  width: 100%;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.card-hover:hover::before {
+  left: 100%;
+}
+
+/* Performance optimization */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

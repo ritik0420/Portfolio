@@ -13,6 +13,15 @@ const AnimatedText = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
 
+  // Reset state when text changes
+  useEffect(() => {
+    if (type === 'typewriter') {
+      setDisplayText('');
+      setCurrentIndex(0);
+      setIsComplete(false);
+    }
+  }, [text, type]);
+
   useEffect(() => {
     if (type === 'typewriter') {
       const timer = setTimeout(() => {
@@ -29,11 +38,11 @@ const AnimatedText = ({
             }, 2000);
           }
         }
-      }, speed * 1000);
+      }, delay > 0 && currentIndex === 0 ? delay * 1000 : speed * 1000);
 
       return () => clearTimeout(timer);
     }
-  }, [currentIndex, text, type, speed, repeat]);
+  }, [currentIndex, text, type, speed, repeat, delay]);
 
   if (type === 'typewriter') {
     return (
@@ -46,8 +55,13 @@ const AnimatedText = ({
         {displayText}
         <motion.span
           animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.5, repeat: Infinity }}
-          className="ml-1"
+          transition={{ 
+            duration: 0.8, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            repeatType: "reverse"
+          }}
+          className="ml-1 text-cyan-400"
         >
           |
         </motion.span>

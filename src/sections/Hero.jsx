@@ -1,27 +1,19 @@
-import { PerspectiveCamera, Ring } from '@react-three/drei'
-import { Canvas } from '@react-three/fiber'
-import React, { Suspense } from 'react'
-import Globe from "react-globe.gl"
-import CanvasLoader from '../components/CanvasLoader'
-import { useMediaQuery } from 'react-responsive'
-import { calculateSizes } from '../constants'
-import Target from '../components/Target'
-import ReactLogo from '../components/ReactLogo'
-import Cube from '../components/Cube'
-import Rings from '../components/Ring'
-import HeroCamera from '../components/HeroCamera'
-import Button from '../components/Button'
+import React, { useState, useEffect } from 'react'
 import AnimatedText from '../components/AnimatedText'
-import ParticleBackground from '../components/ParticleBackground'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
+import ParallaxSection from '../components/ParallaxSection'
+import AnimatedCounter from '../components/AnimatedCounter'
 
 const Hero = () => {
-  const isSmall=useMediaQuery({maxWidth:440});
-  const isMobile=useMediaQuery({maxWidth:768});
-  const isTablet=useMediaQuery({minWidth:768, maxWidth:1024});
   const { currentTheme } = useTheme();
-
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const { scrollYProgress } = useScroll();
+  
+  // Parallax effects for background elements
+  const yParallax = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const opacityParallax = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  
   // Fallback theme in case context is not available
   const fallbackTheme = {
     text: '#FFFFFF',
@@ -30,174 +22,348 @@ const Hero = () => {
 
   const theme = currentTheme || fallbackTheme;
 
-  const sizes=calculateSizes(isSmall, isMobile, isTablet);
+  // Roles for typing effect
+  const roles = [
+    "MERN Stack Developer",
+    "Full Stack Developer", 
+    "Frontend Expert",
+    "Next.js Enthusiast",
+    "JavaScript Developer"
+  ];
+
+  // Social media links
+  const socialLinks = [
+    { name: 'GitHub', url: 'https://github.com/ritik-kaintura', icon: '/assets/github.svg' },
+    { name: 'Twitter', url: 'https://twitter.com/ritik_kaintura', icon: '/assets/twitter.svg' },
+    { name: 'Instagram', url: 'https://instagram.com/ritik_kaintura', icon: '/assets/instagram.svg' },
+    { name: 'Notion', url: 'https://notion.so/ritik-kaintura', icon: '/assets/notion.svg' }
+  ];
+
+  // Auto-rotate roles with smoother timing
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 4000); // Increased interval for smoother experience
+    return () => clearInterval(interval);
+  }, [roles.length]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
+        staggerChildren: 0.15,
+        delayChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        ease: "easeOut"
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1]
       }
     }
   };
 
   return (
-    <section className='min-h-screen w-full flex-col relative overflow-hidden'>
-      <ParticleBackground />
+    <section id='home' className='min-h-screen w-full flex-col relative overflow-hidden'>
+      {/* Cyberpunk/Futuristic Lightweight Background */}
+      <div className="absolute inset-0 -z-10 w-full h-full">
+        {/* Gradient base */}
+        <div
+          className="absolute inset-0 w-full h-full"
+          style={{
+            background:
+              'radial-gradient(1200px 600px at 20% 10%, rgba(0, 255, 255, 0.10), transparent 60%),\nradial-gradient(1000px 500px at 80% 20%, rgba(255, 0, 128, 0.08), transparent 60%),\n               radial-gradient(900px 900px at 50% 100%, rgba(141, 92, 255, 0.10), transparent 60%),\n               linear-gradient(180deg, #04060A 0%, #05010B 100%)'
+          }}
+        />
+
+        {/* Subtle animated grid (SVG) */}
+        <motion.svg
+          className="absolute inset-0 opacity-20 w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          viewBox="0 0 100 100"
+          width="100%"
+          height="100%"
+          initial={{ x: '-2%' }}
+          animate={{ x: '2%' }}
+          transition={{ duration: 8, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
+        >
+          <defs>
+            <pattern id="grid" width="4" height="4" patternUnits="userSpaceOnUse">
+              <path d="M 4 0 L 0 0 0 4" fill="none" stroke="rgba(0,255,255,0.15)" strokeWidth="0.25" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </motion.svg>
+
+        {/* Enhanced Neon glow blobs */}
+        <motion.div
+          className="absolute -top-24 -left-24 w-96 h-96 rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(0,255,255,0.25), rgba(0,255,255,0.0) 60%)' }}
+          animate={{ scale: [1, 1.05, 1], x: [0, 20, 0], y: [0, -10, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute top-1/3 -right-24 w-[28rem] h-[28rem] rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(255,0,128,0.22), rgba(255,0,128,0.0) 60%)' }}
+          animate={{ scale: [1, 1.07, 1], x: [0, -15, 0], y: [0, 20, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-2xl"
+          style={{ background: 'radial-gradient(circle, rgba(147,51,234,0.2), rgba(147,51,234,0.0) 60%)' }}
+          animate={{ scale: [1, 1.1, 1], rotate: [0, 180, 360] }}
+          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        
+        {/* Additional side glow effects for full width coverage */}
+        <motion.div
+          className="absolute top-1/4 -left-12 w-48 h-48 rounded-full blur-2xl"
+          style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.15), rgba(59,130,246,0.0) 60%)' }}
+          animate={{ scale: [1, 1.2, 1], x: [0, 30, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute bottom-1/3 -right-12 w-48 h-48 rounded-full blur-2xl"
+          style={{ background: 'radial-gradient(circle, rgba(236,72,153,0.15), rgba(236,72,153,0.0) 60%)' }}
+          animate={{ scale: [1, 1.15, 1], y: [0, -25, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        
+        {/* Floating particles */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-cyan-400 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.3, 1, 0.3],
+              scale: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: 2 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 1,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+      </div>
       
+
       <motion.div 
-        className='w-full mx-auto flex flex-col sm:mt-32 mt-16 c-space gap-4 relative z-10'
+        className='w-full mx-auto flex flex-col justify-center items-center min-h-screen sm:pt-32 pt-16 pb-28 md:pb-36 c-space gap-6 relative z-10'
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <motion.p 
-          className='sm:text-4xl text-3xl font-medium text-center font-generalsans'
-          style={{ color: theme.text }}
+        {/* Professional Avatar */}
+        <motion.div 
+          className="relative mb-8"
           variants={itemVariants}
         >
-          <AnimatedText 
-            text="Hi, I am Ritik" 
-            type="typewriter" 
-            speed={0.08}
-            className="mr-2"
-          />
-          <span className='waving-hand'>👋</span>
-        </motion.p>
-        
-        <motion.div variants={itemVariants}>
-          <AnimatedText 
-            text="Building Websites & Apps" 
-            type="stagger"
-            className="hero_tag"
-            delay={0.5}
-          />
+          <div className="relative">
+            {/* Avatar with actual photo */}
+            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 p-1 shadow-2xl relative z-10">
+              <div className="w-full h-full rounded-full overflow-hidden">
+                <img 
+                  src="/Gemini_Generated_Image_k3xbdak3xbdak3xb.png" 
+                  alt="Ritik Kaintura" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            {/* Animated ring around avatar */}
+            <motion.div
+              className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 -z-10"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              style={{ padding: '2px' }}
+            >
+              <div className="w-full h-full rounded-full bg-transparent"></div>
+            </motion.div>
+          </div>
         </motion.div>
 
+        {/* Catchy One-Liner */}
         <motion.div 
-          className="flex flex-wrap justify-center gap-4 mt-8"
+          className="text-center mb-6"
           variants={itemVariants}
         >
-          <motion.div
-            className="px-6 py-3 rounded-full border border-current opacity-60 backdrop-blur-sm"
-            style={{ color: theme.textSecondary }}
-            whileHover={{ scale: 1.05, opacity: 1 }}
-            transition={{ duration: 0.3 }}
+          <motion.h3 
+            className="text-xl md:text-2xl font-medium bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
           >
-            React Developer
-          </motion.div>
-          <motion.div
-            className="px-6 py-3 rounded-full border border-current opacity-60 backdrop-blur-sm"
-            style={{ color: theme.textSecondary }}
-            whileHover={{ scale: 1.05, opacity: 1 }}
-            transition={{ duration: 0.3 }}
+            Turning ideas into interactive web experiences 🚀
+          </motion.h3>
+        </motion.div>
+
+        {/* Dynamic Role with Typing Effect */}
+        <motion.div 
+          className="text-center mb-6"
+          variants={itemVariants}
+        >
+          <div className="text-2xl md:text-3xl font-semibold text-white mb-2">
+            I'm a{' '}
+            <AnimatedText 
+              key={currentRoleIndex}
+              text={roles[currentRoleIndex]} 
+              type="typewriter"
+              className="inline-block bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent"
+              delay={0.3}
+              speed={0.08}
+            />
+          </div>
+        </motion.div>
+
+        {/* Quick Highlights with Animated Counters */}
+        <motion.div 
+          className="flex flex-wrap justify-center gap-4 mb-8"
+          variants={itemVariants}
+        >
+          <motion.div 
+            className="bg-black/30 backdrop-blur-sm border border-cyan-400/30 rounded-full px-4 py-2 hover:border-cyan-400/60 hover:bg-black/40 transition-all duration-300"
+            whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(0,255,255,0.3)' }}
           >
-            UI/UX Designer
+            <span className="text-cyan-400 text-sm font-medium">
+              <AnimatedCounter value={1} duration={2} /> Year Experience
+            </span>
           </motion.div>
-          <motion.div
-            className="px-6 py-3 rounded-full border border-current opacity-60 backdrop-blur-sm"
-            style={{ color: theme.textSecondary }}
-            whileHover={{ scale: 1.05, opacity: 1 }}
-            transition={{ duration: 0.3 }}
+          <motion.div 
+            className="bg-black/30 backdrop-blur-sm border border-purple-400/30 rounded-full px-4 py-2 hover:border-purple-400/60 hover:bg-black/40 transition-all duration-300"
+            whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(147,51,234,0.3)' }}
           >
-            Problem Solver
+            <span className="text-purple-400 text-sm font-medium">
+              <AnimatedCounter value={10} suffix="+" duration={2.5} /> Projects Built
+            </span>
           </motion.div>
+          <motion.div 
+            className="bg-black/30 backdrop-blur-sm border border-blue-400/30 rounded-full px-4 py-2 hover:border-blue-400/60 hover:bg-black/40 transition-all duration-300"
+            whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(59,130,246,0.3)' }}
+          >
+            <span className="text-blue-400 text-sm font-medium">MERN Stack Developer</span>
+          </motion.div>
+        </motion.div>
+
+        {/* Social Media Icons */}
+        <motion.div 
+          className="flex gap-4 mb-8"
+          variants={itemVariants}
+        >
+          {socialLinks.map((social, index) => (
+            <motion.a
+              key={social.name}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 bg-black/30 backdrop-blur-sm border border-gray-600/30 rounded-full flex items-center justify-center hover:border-cyan-400/50 transition-all duration-300 group"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2 + (index * 0.1), duration: 0.5 }}
+            >
+              <img 
+                src={social.icon} 
+                alt={social.name}
+                className="w-5 h-5 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
+              />
+            </motion.a>
+          ))}
+        </motion.div>
+
+        {/* Enhanced Description with Typewriter Effect */}
+        <motion.div 
+          className="text-center max-w-3xl mx-auto mb-14"
+          variants={itemVariants}
+        >
+          <div className="text-lg md:text-xl leading-relaxed">
+            <AnimatedText 
+              text="Specializing in React.js, Next.js, and modern JavaScript technologies. I create clean, scalable, and engaging web solutions that bring your vision to life."
+              type="typewriter"
+              className="text-white/90 font-medium"
+              delay={2.5}
+              speed={0.04}
+            />
+          </div>
         </motion.div>
       </motion.div>
 
-      <div className='w-full h-full absolute inset-0'>
-        <Canvas className='w-full h-full'>
-          <Suspense fallback={<CanvasLoader />}>
-            <PerspectiveCamera
-              makeDefault position={[0, 0, 20]} />
-              <HeroCamera isMobile={isMobile}>
-           </HeroCamera>
-           <group>
-            <Target position={sizes.targetPosition}/>
-            <ReactLogo position={sizes.reactLogoPosition}/>
-            <Cube position={sizes.cubePosition}/>
-            <Rings position={sizes.ringPosition}/>
-           </group>
-
-            <ambientLight intensity={1} />
-            <directionalLight position={[10, 10, 10]} intensity={0.5} />
-          </Suspense>
-        </Canvas>
-        
-        {/* Globe component outside Canvas */}
-        <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-          <Globe
-            height={600}
-            width={600}
-            backgroundColor="rgba(0,0,0,0)"
-            backgroundImageOpacity={0.5}
-            showAtmosphere
-            showGraticules
-            globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-            bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-            labelsData={[{
-                lat: 30.3165,
-                lng: 78.0322,
-                text: "I'm here",
-                color: 'white',
-                size: 40,
-            }]}
-          />
-        </div>
-      </div>
-
+      {/* Futuristic accent lines with parallax */}
       <motion.div 
-        className='absolute bottom-[-40px] left-0 w-full z-10 c-space'
+        className='pointer-events-none absolute inset-x-0 top-40 flex justify-center -z-0'
+        style={{ y: yParallax, opacity: opacityParallax }}
+      >
+        <motion.div 
+          className='h-px w-11/12 max-w-5xl' 
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(0,255,255,0.45), transparent)' }}
+          animate={{ scaleX: [0.8, 1, 0.8] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        />
+      </motion.div>
+      <motion.div 
+        className='pointer-events-none absolute inset-x-0 bottom-40 flex justify-center -z-0'
+        style={{ y: yParallax, opacity: opacityParallax }}
+      >
+        <motion.div 
+          className='h-px w-10/12 max-w-4xl' 
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(255,0,128,0.35), transparent)' }}
+          animate={{ scaleX: [0.8, 1, 0.8] }}
+          transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
+        />
+      </motion.div>
+
+      {/* Scroll More Animation */}
+      <motion.div 
+        className='absolute bottom-8 sm:bottom-10 left-1/2 transform -translate-x-1/2 z-30 flex flex-col items-center justify-center'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
+        transition={{ delay: 3, duration: 0.8 }}
       >
-        <a href="#about" className='w-fit'>
-          <Button name="Let's work together" isBeam containerClass="sm:w-fit w-full sm:min-w-96 shadow-lg" />
-        </a>
+        <motion.div 
+          className="text-white/70 text-center text-sm font-medium mb-3 tracking-wide"
+          animate={{ opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          Scroll to explore
+        </motion.div>
+        <motion.div
+          className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center items-start relative"
+          animate={{ 
+            borderColor: ["rgba(255,255,255,0.3)", "rgba(0,255,255,0.8)", "rgba(255,255,255,0.3)"]
+          }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <motion.div
+            className="w-1 h-3 bg-gradient-to-b from-cyan-400 to-white/60 rounded-full mt-2"
+            animate={{ 
+              y: [0, 12, 0],
+              opacity: [0.6, 1, 0.6]
+            }}
+            transition={{ 
+              duration: 2, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 0.5
+            }}
+          />
+        </motion.div>
       </motion.div>
 
-      {/* Floating elements */}
-      <motion.div
-        className="absolute top-24 left-12 w-24 h-24 border border-current rounded-full opacity-20"
-        style={{ color: theme.textSecondary }}
-        animate={{
-          y: [0, -20, 0],
-          rotate: [0, 360]
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute top-48 right-24 w-20 h-20 border border-current rounded-full opacity-20"
-        style={{ color: theme.textSecondary }}
-        animate={{
-          y: [0, 20, 0],
-          rotate: [360, 0]
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
+      
     </section>
   )
 }
