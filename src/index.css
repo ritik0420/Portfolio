@@ -38,6 +38,27 @@ body {
   transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease;
 }
 
+/* Light theme specific background with gradient */
+.theme-light body {
+  background: linear-gradient(180deg, #f8fafc, #eef2ff, #ffffff);
+  position: relative;
+}
+
+/* Subtle dotted texture overlay for light theme */
+.theme-light body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, #1e293b 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* Theme-specific styles */
 .theme-dark {
   --bg-primary: #010103;
@@ -50,13 +71,36 @@ body {
 }
 
 .theme-light {
-  --bg-primary: #FFFFFF;
-  --bg-surface: #F8F9FA;
-  --bg-surface-secondary: #E9ECEF;
-  --text-primary: #212529;
-  --text-secondary: #6C757D;
-  --accent: #007BFF;
-  --gradient: from-[#007BFF] via-[#0056B3] to-[#004085];
+  /* Subtle cool gradient background */
+  --bg-primary: linear-gradient(180deg, #f8fafc, #eef2ff, #ffffff);
+  --bg-surface: #ffffff;
+  --bg-surface-secondary: #f9fafb;
+  
+  /* Typography - excellent readability */
+  --text-primary: #1e293b; /* dark slate gray */
+  --text-secondary: #475569; /* medium gray */
+  
+  /* Accent colors */
+  --accent: #2563eb; /* royal blue */
+  --accent-hover: #1d4ed8;
+  
+  /* Gradient for headings */
+  --gradient: from-[#2563eb] via-[#7c3aed] to-[#7c3aed];
+  
+  /* Borders and shadows */
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 20px rgba(99, 102, 241, 0.2);
+  
+  /* Tech badge colors */
+  --react-color: #61dafb;
+  --node-color: #68a063;
+  --mongo-color: #4db33d;
+  
+  /* Glow effects */
+  --blue-glow: 0 0 10px rgba(37, 99, 235, 0.3);
+  --pink-glow: 0 0 10px rgba(236, 72, 153, 0.3);
+  --button-glow: 0 0 8px rgba(37, 99, 235, 0.4);
 }
 
 .theme-neon {
@@ -343,6 +387,314 @@ body {
     background: var(--accent);
     transform: translateY(-3px) scale(1.1);
   }
+}
+
+/* ============================================
+   LIGHT THEME SPECIFIC ENHANCEMENTS
+   ============================================ */
+
+/* Headings with gradient effect and subtle underline */
+.theme-light .head-text {
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  display: inline-block;
+}
+
+.theme-light .head-text::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(37, 99, 235, 0.4);
+  border-radius: 2px;
+}
+
+/* Hero section enhancements */
+.theme-light .hero-name {
+  color: #0f172a; /* rich navy */
+  text-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
+}
+
+.theme-light .hero-title {
+  color: #0f172a;
+}
+
+.theme-light .hero_tag {
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card enhancements with better shadows and borders */
+.theme-light .grid-container {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.theme-light .grid-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+}
+
+.theme-light .grid-headtext {
+  color: #0f172a;
+}
+
+/* Primary button styling */
+.theme-light .btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: 1px solid #2563eb;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.3);
+}
+
+.theme-light .btn:hover {
+  background: #1d4ed8;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+/* CTA button */
+.theme-light .cta-button {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.3);
+}
+
+.theme-light .cta-button:hover {
+  background: #1d4ed8;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+}
+
+/* Arrow buttons for projects */
+.theme-light .arrow-btn {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.theme-light .arrow-btn:hover {
+  background: #eff6ff;
+  border-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.theme-light .arrow-btn img {
+  filter: invert(1) brightness(0.2);
+}
+
+/* Tech logos/badges */
+.theme-light .tech-logo {
+  background: linear-gradient(145deg, #ffffff, #f1f5f9);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Project cards */
+.theme-light .work-canvas,
+.theme-light .work-content {
+  background: linear-gradient(145deg, #ffffff, #f1f5f9);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.theme-light .work-content_container:hover {
+  background: #f9fafb;
+}
+
+.theme-light .work-content_logo {
+  background: #f9fafb;
+  border: 1px solid #e2e8f0;
+}
+
+.theme-light .work-content_bar {
+  background: #e2e8f0;
+}
+
+.theme-light .work-content_container:hover .work-content_bar {
+  background: #2563eb;
+}
+
+/* Contact section */
+.theme-light .contact-container {
+  background: #f9fafb;
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.theme-light .field-input {
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.theme-light .field-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+}
+
+.theme-light .field-input::placeholder {
+  color: #94a3b8;
+}
+
+.theme-light .field-btn {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+}
+
+.theme-light .field-btn:hover {
+  background: #1d4ed8;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.5);
+}
+
+/* Client review cards */
+.theme-light .client-review {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Social icons in footer */
+.theme-light .social-icon {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.theme-light .social-icon:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+}
+
+.theme-light .social-icon img {
+  filter: invert(1) brightness(0.2);
+}
+
+.theme-light .social-icon:hover img {
+  filter: invert(1) brightness(2);
+}
+
+/* Nav links */
+.theme-light .nav-li_a {
+  color: #475569;
+}
+
+.theme-light .nav-li_a:hover {
+  color: #2563eb;
+}
+
+.theme-light .nav-underline {
+  background: linear-gradient(90deg, #2563eb, #7c3aed, #ec4899);
+}
+
+/* Scrollbar for light theme */
+.theme-light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.theme-light ::-webkit-scrollbar-thumb {
+  background: #2563eb;
+}
+
+.theme-light ::-webkit-scrollbar-thumb:hover {
+  background: #1d4ed8;
+}
+
+/* Selection for light theme */
+.theme-light ::selection {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.theme-light ::-moz-selection {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+/* Footer for light theme */
+.theme-light footer {
+  background: #f1f5f9;
+  border-top: 1px solid #e2e8f0;
+}
+
+.theme-light footer p,
+.theme-light footer a {
+  color: #475569;
+}
+
+.theme-light footer a:hover {
+  color: #2563eb;
+}
+
+/* Ensure proper text colors across all sections */
+.theme-light h1,
+.theme-light h2,
+.theme-light h3,
+.theme-light h4,
+.theme-light h5,
+.theme-light h6 {
+  color: #0f172a;
+}
+
+.theme-light p {
+  color: #475569;
+}
+
+/* Hover lift effect for light theme cards */
+.theme-light .hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+}
+
+/* Glow effects for section dividers (optional) */
+.theme-light .section-divider {
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+}
+
+/* Enhanced focus states for light theme */
+.theme-light input:focus,
+.theme-light textarea:focus,
+.theme-light select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2),
+              0 0 12px rgba(37, 99, 235, 0.3);
+  border-color: #2563eb;
+}
+
+/* Light theme navbar when scrolled */
+.theme-light .nav-li_a-scrolled {
+  color: #1e293b;
+}
+
+.theme-light .nav-li_a-scrolled:hover {
+  color: #2563eb;
+}
+
+/* Ensure cards have good contrast */
+.theme-light .card-hover {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+.theme-light .card-hover:hover {
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+}
+
+/* Light theme backdrop blur */
+.theme-light .backdrop-blur-enhanced {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(226, 232, 240, 0.6);
 }
 
 .waving-hand {

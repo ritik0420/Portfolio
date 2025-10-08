@@ -38,12 +38,8 @@ const App = () => {
           <Experience />
           <SectionTransition variant="wave" color="pink" />
           <Projects />
-          <SectionTransition variant="line" color="cyan" />
-          <main className='max-w-7xl mx-auto relative'>
-            <section id="contact">
-              <Contact />
-            </section>
-          </main>
+          <SectionTransition variant="dots" color="purple" />
+          <Contact />
           <SectionTransition variant="line" color="cyan" />
           <Footer />
         </>

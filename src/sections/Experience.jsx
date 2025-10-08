@@ -176,8 +176,8 @@ const Experience = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="text-white font-semibold text-sm md:text-base">{exp.company}</div>
-              <div className={`text-xs mt-1 ${selectedExperience === index ? 'text-white/90' : 'text-white/50'}`}>
+              <div className="font-semibold text-sm md:text-base" style={{ color: 'var(--text-primary)' }}>{exp.company}</div>
+              <div className={`text-xs mt-1 ${selectedExperience === index ? 'opacity-90' : 'opacity-50'}`} style={{ color: 'var(--text-primary)' }}>
                 {exp.period}
               </div>
             </motion.button>
@@ -212,19 +212,20 @@ const Experience = () => {
               >
                 <div>
                   <motion.h3 
-                    className={`text-3xl md:text-4xl font-bold text-white mb-2`}
+                    className={`text-3xl md:text-4xl font-bold mb-2`}
+                    style={{ color: 'var(--text-primary)' }}
                     whileHover={{ x: 5 }}
                   >
                     {currentExp.position}
                   </motion.h3>
-                  <div className="flex flex-wrap items-center gap-3 text-white/80">
+                  <div className="flex flex-wrap items-center gap-3" style={{ color: 'var(--text-secondary)' }}>
                     <span className={`text-xl font-semibold ${colors.accent}`}>{currentExp.company}</span>
-                    <span className="text-white/50">•</span>
+                    <span style={{ color: 'var(--text-secondary)', opacity: 0.5 }}>•</span>
                     <span>{currentExp.location}</span>
                     {currentExp.type && (
                       <>
-                        <span className="text-white/50">•</span>
-                        <span className="px-2 py-1 bg-white/10 rounded-full text-sm">{currentExp.type}</span>
+                        <span style={{ color: 'var(--text-secondary)', opacity: 0.5 }}>•</span>
+                        <span className="px-2 py-1 rounded-full text-sm" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)' }}>{currentExp.type}</span>
                       </>
                     )}
                   </div>
@@ -239,7 +240,8 @@ const Experience = () => {
 
               {/* Description */}
               <motion.p 
-                className="text-white/80 text-base md:text-lg leading-relaxed mb-6"
+                className="text-base md:text-lg leading-relaxed mb-6"
+                style={{ color: 'var(--text-secondary)' }}
                 variants={itemVariants}
               >
                 {currentExp.description}
@@ -272,12 +274,13 @@ const Experience = () => {
                   className="mb-6"
                   variants={itemVariants}
                 >
-                  <h4 className="text-white font-semibold text-lg mb-2">Key Projects:</h4>
+                  <h4 className="font-semibold text-lg mb-2" style={{ color: 'var(--text-primary)' }}>Key Projects:</h4>
                   <div className="flex flex-wrap gap-2">
                     {currentExp.projects.map((project, idx) => (
                       <motion.span
                         key={idx}
-                        className="px-3 py-1 bg-white/10 text-white rounded-full text-sm border border-white/20"
+                        className="px-3 py-1 rounded-full text-sm border"
+                        style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}
                         whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.4)' }}
                       >
                         {project}
@@ -292,12 +295,13 @@ const Experience = () => {
                 className="mb-6"
                 variants={itemVariants}
               >
-                <h4 className="text-white font-semibold text-xl mb-4">Key Contributions & Achievements:</h4>
+                <h4 className="font-semibold text-xl mb-4" style={{ color: 'var(--text-primary)' }}>Key Contributions & Achievements:</h4>
                 <ul className="space-y-3">
                   {currentExp.achievements.map((achievement, idx) => (
                     <motion.li
                       key={idx}
-                      className="flex items-start gap-3 text-white/80"
+                      className="flex items-start gap-3"
+                      style={{ color: 'var(--text-secondary)' }}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 * idx, duration: 0.3 }}
@@ -316,7 +320,7 @@ const Experience = () => {
 
               {/* Technologies */}
               <motion.div variants={itemVariants}>
-                <h4 className="text-white font-semibold text-xl mb-4">Technologies Used:</h4>
+                <h4 className="font-semibold text-xl mb-4" style={{ color: 'var(--text-primary)' }}>Technologies Used:</h4>
                 <div className="flex flex-wrap gap-3">
                   {currentExp.technologies.map((tech, idx) => (
                     <motion.div

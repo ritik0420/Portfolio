@@ -6,7 +6,7 @@ import ParallaxSection from '../components/ParallaxSection'
 import AnimatedCounter from '../components/AnimatedCounter'
 
 const Hero = () => {
-  const { currentTheme } = useTheme();
+  const { currentTheme, theme: themeName } = useTheme();
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const { scrollYProgress } = useScroll();
   
@@ -72,20 +72,28 @@ const Hero = () => {
 
   return (
     <section id='home' className='min-h-screen w-full flex-col relative overflow-hidden'>
-      {/* Cyberpunk/Futuristic Lightweight Background */}
+      {/* Animated Background - Theme Aware */}
       <div className="absolute inset-0 -z-10 w-full h-full">
         {/* Gradient base */}
         <div
           className="absolute inset-0 w-full h-full"
           style={{
-            background:
-              'radial-gradient(1200px 600px at 20% 10%, rgba(0, 255, 255, 0.10), transparent 60%),\nradial-gradient(1000px 500px at 80% 20%, rgba(255, 0, 128, 0.08), transparent 60%),\n               radial-gradient(900px 900px at 50% 100%, rgba(141, 92, 255, 0.10), transparent 60%),\n               linear-gradient(180deg, #04060A 0%, #05010B 100%)'
+            background: themeName === 'light'
+              ? `radial-gradient(1200px 600px at 20% 10%, rgba(37,99,235,0.15), transparent 60%),
+                 radial-gradient(1000px 500px at 80% 20%, rgba(236,72,153,0.12), transparent 60%),
+                 radial-gradient(900px 900px at 50% 100%, rgba(124,58,237,0.15), transparent 60%),
+                 linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-primary) 100%)`
+              : `radial-gradient(1200px 600px at 20% 10%, rgba(0,255,255,0.10), transparent 60%),
+                 radial-gradient(1000px 500px at 80% 20%, rgba(255,0,128,0.08), transparent 60%),
+                 radial-gradient(900px 900px at 50% 100%, rgba(141,92,255,0.10), transparent 60%),
+                 linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-primary) 100%)`
           }}
         />
 
         {/* Subtle animated grid (SVG) */}
         <motion.svg
-          className="absolute inset-0 opacity-20 w-full h-full"
+          className="absolute inset-0 w-full h-full"
+          style={{ opacity: themeName === 'light' ? 0.20 : 0.20 }}
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
           viewBox="0 0 100 100"
@@ -97,28 +105,45 @@ const Hero = () => {
         >
           <defs>
             <pattern id="grid" width="4" height="4" patternUnits="userSpaceOnUse">
-              <path d="M 4 0 L 0 0 0 4" fill="none" stroke="rgba(0,255,255,0.15)" strokeWidth="0.25" />
+              <path 
+                d="M 4 0 L 0 0 0 4" 
+                fill="none" 
+                stroke={themeName === 'light' ? 'rgba(37,99,235,0.20)' : 'rgba(0,255,255,0.15)'} 
+                strokeWidth="0.25" 
+              />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#grid)" />
         </motion.svg>
 
-        {/* Enhanced Neon glow blobs */}
+        {/* Animated glow blobs - Theme Aware */}
         <motion.div
           className="absolute -top-24 -left-24 w-96 h-96 rounded-full blur-3xl"
-          style={{ background: 'radial-gradient(circle, rgba(0,255,255,0.25), rgba(0,255,255,0.0) 60%)' }}
+          style={{ 
+            background: themeName === 'light' 
+              ? 'radial-gradient(circle, rgba(37,99,235,0.25), rgba(37,99,235,0.0) 60%)' 
+              : 'radial-gradient(circle, rgba(0,255,255,0.25), rgba(0,255,255,0.0) 60%)'
+          }}
           animate={{ scale: [1, 1.05, 1], x: [0, 20, 0], y: [0, -10, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           className="absolute top-1/3 -right-24 w-[28rem] h-[28rem] rounded-full blur-3xl"
-          style={{ background: 'radial-gradient(circle, rgba(255,0,128,0.22), rgba(255,0,128,0.0) 60%)' }}
+          style={{ 
+            background: themeName === 'light' 
+              ? 'radial-gradient(circle, rgba(236,72,153,0.22), rgba(236,72,153,0.0) 60%)' 
+              : 'radial-gradient(circle, rgba(255,0,128,0.22), rgba(255,0,128,0.0) 60%)'
+          }}
           animate={{ scale: [1, 1.07, 1], x: [0, -15, 0], y: [0, 20, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-2xl"
-          style={{ background: 'radial-gradient(circle, rgba(147,51,234,0.2), rgba(147,51,234,0.0) 60%)' }}
+          style={{ 
+            background: themeName === 'light' 
+              ? 'radial-gradient(circle, rgba(124,58,237,0.22), rgba(124,58,237,0.0) 60%)' 
+              : 'radial-gradient(circle, rgba(147,51,234,0.2), rgba(147,51,234,0.0) 60%)'
+          }}
           animate={{ scale: [1, 1.1, 1], rotate: [0, 180, 360] }}
           transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -126,13 +151,21 @@ const Hero = () => {
         {/* Additional side glow effects for full width coverage */}
         <motion.div
           className="absolute top-1/4 -left-12 w-48 h-48 rounded-full blur-2xl"
-          style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.15), rgba(59,130,246,0.0) 60%)' }}
+          style={{ 
+            background: themeName === 'light' 
+              ? 'radial-gradient(circle, rgba(59,130,246,0.20), rgba(59,130,246,0.0) 60%)' 
+              : 'radial-gradient(circle, rgba(59,130,246,0.15), rgba(59,130,246,0.0) 60%)'
+          }}
           animate={{ scale: [1, 1.2, 1], x: [0, 30, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           className="absolute bottom-1/3 -right-12 w-48 h-48 rounded-full blur-2xl"
-          style={{ background: 'radial-gradient(circle, rgba(236,72,153,0.15), rgba(236,72,153,0.0) 60%)' }}
+          style={{ 
+            background: themeName === 'light' 
+              ? 'radial-gradient(circle, rgba(236,72,153,0.20), rgba(236,72,153,0.0) 60%)' 
+              : 'radial-gradient(circle, rgba(236,72,153,0.15), rgba(236,72,153,0.0) 60%)'
+          }}
           animate={{ scale: [1, 1.15, 1], y: [0, -25, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -141,14 +174,15 @@ const Hero = () => {
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-cyan-400 rounded-full"
+            className={themeName === 'light' ? 'absolute w-1.5 h-1.5 bg-blue-500 rounded-full' : 'absolute w-1 h-1 bg-cyan-400 rounded-full'}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
+              opacity: themeName === 'light' ? 0.5 : 0.5,
             }}
             animate={{
               y: [0, -30, 0],
-              opacity: [0.3, 1, 0.3],
+              opacity: themeName === 'light' ? [0.4, 0.8, 0.4] : [0.3, 1, 0.3],
               scale: [0.5, 1, 0.5],
             }}
             transition={{
@@ -202,12 +236,15 @@ const Hero = () => {
           variants={itemVariants}
         >
           <motion.h3 
-            className="text-xl md:text-2xl font-medium bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent mb-4"
+            className="text-xl md:text-2xl font-medium mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.8 }}
           >
-            Turning ideas into interactive web experiences 🚀
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Turning ideas into interactive web experiences
+            </span>{' '}
+            <span className="inline-block">🚀</span>
           </motion.h3>
         </motion.div>
 
@@ -216,7 +253,7 @@ const Hero = () => {
           className="text-center mb-6"
           variants={itemVariants}
         >
-          <div className="text-2xl md:text-3xl font-semibold text-white mb-2">
+          <div className="text-2xl md:text-3xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
             I'm a{' '}
             <AnimatedText 
               key={currentRoleIndex}
@@ -294,7 +331,8 @@ const Hero = () => {
             <AnimatedText 
               text="Specializing in React.js, Next.js, and modern JavaScript technologies. I create clean, scalable, and engaging web solutions that bring your vision to life."
               type="typewriter"
-              className="text-white/90 font-medium"
+              className="font-medium"
+              style={{ color: 'var(--text-primary)' }}
               delay={2.5}
               speed={0.04}
             />
@@ -324,43 +362,6 @@ const Hero = () => {
           animate={{ scaleX: [0.8, 1, 0.8] }}
           transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
         />
-      </motion.div>
-
-      {/* Scroll More Animation */}
-      <motion.div 
-        className='absolute bottom-8 sm:bottom-10 left-1/2 transform -translate-x-1/2 z-30 flex flex-col items-center justify-center'
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 3, duration: 0.8 }}
-      >
-        <motion.div 
-          className="text-white/70 text-center text-sm font-medium mb-3 tracking-wide"
-          animate={{ opacity: [0.7, 1, 0.7] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          Scroll to explore
-        </motion.div>
-        <motion.div
-          className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center items-start relative"
-          animate={{ 
-            borderColor: ["rgba(255,255,255,0.3)", "rgba(0,255,255,0.8)", "rgba(255,255,255,0.3)"]
-          }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <motion.div
-            className="w-1 h-3 bg-gradient-to-b from-cyan-400 to-white/60 rounded-full mt-2"
-            animate={{ 
-              y: [0, 12, 0],
-              opacity: [0.6, 1, 0.6]
-            }}
-            transition={{ 
-              duration: 2, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 0.5
-            }}
-          />
-        </motion.div>
       </motion.div>
 
       

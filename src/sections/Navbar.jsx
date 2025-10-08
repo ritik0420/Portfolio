@@ -41,9 +41,14 @@ const Navbar = () => {
     <motion.header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled 
-          ? 'bg-black/95 backdrop-blur-xl border-b border-cyan-400/20 shadow-2xl shadow-cyan-500/10' 
+          ? 'backdrop-blur-xl border-b shadow-2xl' 
           : 'bg-transparent backdrop-blur-none'
       }`}
+      style={{
+        backgroundColor: isScrolled ? 'var(--bg-surface)' : 'transparent',
+        borderColor: isScrolled ? 'var(--accent)' : 'transparent',
+        boxShadow: isScrolled ? '0 0 20px var(--accent)' : 'none'
+      }}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -51,10 +56,11 @@ const Navbar = () => {
       {/* Animated background gradient overlay */}
       <motion.div 
         className="absolute inset-0 opacity-30"
-        animate={{
+        style={{
           background: isScrolled 
-            ? 'linear-gradient(90deg, rgba(0,255,255,0.1) 0%, rgba(147,51,234,0.1) 50%, rgba(255,0,128,0.1) 100%)'
-            : 'linear-gradient(90deg, rgba(0,255,255,0.05) 0%, rgba(147,51,234,0.05) 50%, rgba(255,0,128,0.05) 100%)'
+            ? 'linear-gradient(90deg, var(--accent) 0%, var(--accent) 50%, var(--accent) 100%)'
+            : 'linear-gradient(90deg, var(--accent) 0%, var(--accent) 50%, var(--accent) 100%)',
+          opacity: isScrolled ? 0.1 : 0.05
         }}
         transition={{ duration: 0.5 }}
       />
@@ -63,8 +69,9 @@ const Navbar = () => {
       {[...Array(3)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-60"
-          style={{
+          className="absolute w-1 h-1 rounded-full opacity-60"
+          style={{ 
+            backgroundColor: 'var(--accent)',
             left: `${20 + i * 30}%`,
             top: '50%',
           }}
@@ -89,8 +96,9 @@ const Navbar = () => {
             className={`font-bold text-2xl transition-all duration-500 relative group ${
               isScrolled 
                 ? 'bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent' 
-                : 'text-white'
+                : ''
             }`}
+            style={{ color: isScrolled ? undefined : 'var(--text-primary)' }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -103,55 +111,61 @@ const Navbar = () => {
             />
           </motion.a>
 
-          <motion.button 
-            onClick={toggleMenu} 
-            className={`relative p-2 rounded-lg transition-all duration-300 sm:hidden flex ${
-              isScrolled 
-                ? 'bg-black/30 border border-cyan-400/30 hover:border-cyan-400/60' 
-                : 'bg-black/20 border border-white/20 hover:border-white/40'
-            }`}
-            aria-label='Toggle Menu'
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <motion.img 
-              src={isOpen ? "assets/close.svg" : "assets/menu.svg"} 
-              alt="toggle" 
-              className='w-6 h-6 filter brightness-0 invert'
-              animate={{ rotate: isOpen ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.button>
+          <div className='flex items-center gap-3'>
+            <div className='sm:hidden flex items-center'>
+              <ThemeToggle />
+            </div>
+            
+            <motion.button 
+              onClick={toggleMenu} 
+              className={`relative p-2 rounded-lg transition-all duration-300 sm:hidden flex ${
+                isScrolled 
+                  ? 'bg-black/30 border border-cyan-400/30 hover:border-cyan-400/60' 
+                  : 'bg-black/20 border border-white/20 hover:border-white/40'
+              }`}
+              aria-label='Toggle Menu'
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <motion.img 
+                src={isOpen ? "assets/close.svg" : "assets/menu.svg"} 
+                alt="toggle" 
+                className='w-6 h-6 filter brightness-0 invert'
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.button>
 
-          <div className='sm:flex hidden items-center'>
-            <nav>
-              <NavItems isScrolled={isScrolled} />
-            </nav>
-            <ThemeToggle />
+            <div className='sm:flex hidden items-center'>
+              <nav>
+                <NavItems isScrolled={isScrolled} />
+              </nav>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Mobile menu with enhanced styling */}
       <motion.div 
-        className={`nav-sidebar relative ${
-          isScrolled 
-            ? 'bg-black/95 backdrop-blur-xl border-t border-cyan-400/20' 
-            : 'bg-black/90 backdrop-blur-lg border-t border-white/10'
-        }`}
+        className="nav-sidebar relative backdrop-blur-xl border-t sm:hidden"
+        style={{
+          backgroundColor: 'var(--bg-surface)',
+          borderColor: 'var(--accent)',
+          display: isOpen ? 'block' : 'none',
+          pointerEvents: isOpen ? 'auto' : 'none'
+        }}
         initial={false}
         animate={{
-          maxHeight: isOpen ? '400px' : '0px',
+          maxHeight: isOpen ? '500px' : '0px',
           opacity: isOpen ? 1 : 0,
         }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
       >
         <motion.div 
           className="absolute inset-0 opacity-20"
-          animate={{
-            background: isScrolled 
-              ? 'linear-gradient(135deg, rgba(0,255,255,0.1) 0%, rgba(147,51,234,0.1) 100%)'
-              : 'linear-gradient(135deg, rgba(0,255,255,0.05) 0%, rgba(147,51,234,0.05) 100%)'
+          style={{
+            background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent) 100%)'
           }}
         />
         <nav className="p-6 relative z-10">

@@ -5,6 +5,7 @@ import { useTheme } from '../context/ThemeContext';
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { currentTheme } = useTheme();
 
   // Fallback colors in case theme context is not available
@@ -16,6 +17,16 @@ const CustomCursor = () => {
   const theme = currentTheme || fallbackTheme;
 
   useEffect(() => {
+    // Check if device is mobile/touch device
+    const checkIsMobile = () => {
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      setIsMobile(isTouchDevice || isSmallScreen);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
     const updateMousePosition = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -33,6 +44,7 @@ const CustomCursor = () => {
     });
 
     return () => {
+      window.removeEventListener('resize', checkIsMobile);
       window.removeEventListener('mousemove', updateMousePosition);
       interactiveElements.forEach(el => {
         el.removeEventListener('mouseenter', handleMouseEnter);
@@ -40,6 +52,11 @@ const CustomCursor = () => {
       });
     };
   }, []);
+
+  // Don't render custom cursor on mobile devices
+  if (isMobile) {
+    return null;
+  }
 
   return (
     <>

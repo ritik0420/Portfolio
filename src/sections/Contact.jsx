@@ -1,252 +1,390 @@
-import React, { useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 import emailjs from '@emailjs/browser';
-import ScrollReveal from '../components/ScrollReveal'
 
 const Contact = () => {
-    const formRef = useRef();
-    const [loading, setLoading] = useState(false);
-    const [form, setForm] = useState({
-        name: '',
-        email: '',
-        message: ''
-    })
+  const { currentTheme, theme: themeName } = useTheme();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
-    const handleChange = ({ target: { name, value } }) => {
-        setForm({ ...form, [name]: value })
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      await emailjs.send(
+        'service_t3nw2fe',
+        'template_xckk9ob',
+        {
+          from_name: formData.name,
+          to_name: 'Ritik',
+          from_email: formData.email,
+          to_email: 'ritik.kaintura007@gmail.com',
+          subject: formData.subject,
+          message: formData.message
+        },
+        'Y5BOFyl-0AAE85x2U'
+      );
+      
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      setSubmitStatus('error');
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus(null), 5000);
     }
+  };
 
-    //service_t3nw2fe
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-           await emailjs.send(
-                'service_t3nw2fe',
-                'template_xckk9ob',
-                {
-                    from_name: form.name,
-                    to_name: 'Ritik',
-                    from_email: form.email,
-                    to_email: 'ritik.kaintura007@gmail.com',
-                    message: form.message
-                },
-                'Y5BOFyl-0AAE85x2U'
-            )            
-        setLoading(false);
-        alert('Your message has been sent!')
+  return (
+    <section id="contact" className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 -z-10">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: themeName === 'light'
+              ? 'linear-gradient(135deg, rgba(59,130,246,0.05) 0%, rgba(147,51,234,0.05) 100%)'
+              : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(10,10,30,0.95) 100%)'
+          }}
+        />
+        
+        {/* Animated grid */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="h-full w-full" style={{
+            backgroundImage: themeName === 'light'
+              ? 'linear-gradient(rgba(59,130,246,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.1) 1px, transparent 1px)'
+              : 'linear-gradient(rgba(0,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,0.1) 1px, transparent 1px)',
+            backgroundSize: '50px 50px'
+          }} />
+        </div>
 
-        setForm({
-            name: '',
-            email: '',
-            message: ''
-        })
-        }
-        catch (error) {
-setLoading(false);
-console.log(error);
-        }
-    }
+        {/* Floating orbs */}
+        <motion.div
+          className="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl"
+          style={{
+            background: themeName === 'light'
+              ? 'radial-gradient(circle, rgba(59,130,246,0.3), transparent 70%)'
+              : 'radial-gradient(circle, rgba(0,255,255,0.2), transparent 70%)'
+          }}
+          animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl"
+          style={{
+            background: themeName === 'light'
+              ? 'radial-gradient(circle, rgba(147,51,234,0.25), transparent 70%)'
+              : 'radial-gradient(circle, rgba(255,0,255,0.15), transparent 70%)'
+          }}
+          animate={{ x: [0, -30, 0], y: [0, -50, 0] }}
+          transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </div>
 
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 
+            className="text-5xl md:text-6xl font-bold mb-4"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            Get In Touch
+          </h2>
+          <div className="w-32 h-1.5 mx-auto rounded-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500" />
+          <p 
+            className="mt-6 text-lg md:text-xl max-w-2xl mx-auto"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            Have a project in mind? Let's work together to create something amazing.
+          </p>
+        </motion.div>
 
-    return (
-        <section id='contact' className='c-space my-20'>
-            <div className='relative min-h-screen flex items-center justify-center flex-col'>
-                {/* Background image with parallax effect */}
-                <motion.img 
-                    src="/assets/terminal.png" 
-                    alt="terminal background" 
-                    className="absolute inset-0 min-h-screen object-cover"
-                    initial={{ scale: 1.05 }}
-                    whileInView={{ scale: 1 }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    viewport={{ once: true }}
-                    style={{ willChange: 'transform' }}
-                />
-                
-                {/* Animated overlay gradient */}
-                <motion.div 
-                    className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/10 to-pink-500/10"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
-                    viewport={{ once: true }}
-                />
-                
-                <ScrollReveal direction="scale" duration={0.6} delay={0.1}>
-                    <motion.div 
-                        className='contact-container p-10 relative z-10'
-                        whileHover={{ 
-                            boxShadow: '0 0 50px rgba(0,255,255,0.3)',
-                            borderColor: 'rgba(0,255,255,0.3)'
-                        }}
-                        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                        <motion.h3 
-                            className='head-text relative inline-block'
-                            initial={{ opacity: 0, y: -20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                        >
-                            Contact Me
-                            {/* Animated underline */}
-                            <motion.div
-                                className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-full"
-                                initial={{ scaleX: 0 }}
-                                whileInView={{ scaleX: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            />
-                        </motion.h3>
-                        
-                        <ScrollReveal direction="fade" delay={0.2}>
-                            <p className='text-lg text-white-600 mt-3'>
-                                Whether you're looking to build a new website,
-                                improve your existing platform, or bring a unique project to life, I'm here to help.
-                            </p>
-                        </ScrollReveal>
-                        
-                        <form ref={formRef} onSubmit={handleSubmit} className='mt-12 flex flex-col space-y-7'>
-                            <ScrollReveal direction="left" delay={0.25}>
-                                <motion.label 
-                                    className='space-y-3 group'
-                                    whileFocus={{ scale: 1.01 }}
-                                >
-                                    <span className='field-label'>Full Name</span>
-                                    <motion.input
-                                        type='text'
-                                        name='name'
-                                        value={form.name}
-                                        onChange={handleChange}
-                                        required
-                                        className='field-input'
-                                        placeholder='Enter Name'
-                                        whileFocus={{ 
-                                            boxShadow: '0 0 20px rgba(0,255,255,0.3)',
-                                            borderColor: 'rgba(0,255,255,0.5)',
-                                            transition: { duration: 0.2 }
-                                        }}
-                                    />
-                                </motion.label>
-                            </ScrollReveal>
-                            
-                            <ScrollReveal direction="right" delay={0.3}>
-                                <motion.label 
-                                    className='space-y-3'
-                                    whileFocus={{ scale: 1.01 }}
-                                >
-                                    <span className='field-label'>Email</span>
-                                    <motion.input
-                                        type='email'
-                                        name='email'
-                                        value={form.email}
-                                        onChange={handleChange}
-                                        required
-                                        className='field-input'
-                                        placeholder='Enter Email'
-                                        whileFocus={{ 
-                                            boxShadow: '0 0 20px rgba(0,255,255,0.3)',
-                                            borderColor: 'rgba(0,255,255,0.5)',
-                                            transition: { duration: 0.2 }
-                                        }}
-                                    />
-                                </motion.label>
-                            </ScrollReveal>
-                            
-                            <ScrollReveal direction="left" delay={0.35}>
-                                <motion.label 
-                                    className='space-y-3'
-                                    whileFocus={{ scale: 1.02 }}
-                                >
-                                    <span className='field-label'>Your message</span>
-                                    <motion.textarea
-                                        name='message'
-                                        value={form.message}
-                                        onChange={handleChange}
-                                        required
-                                        rows={5}
-                                        className='field-input'
-                                        placeholder='Enter your message here..'
-                                        whileFocus={{ 
-                                            boxShadow: '0 0 20px rgba(0,255,255,0.3)',
-                                            borderColor: 'rgba(0,255,255,0.5)'
-                                        }}
-                                    />
-                                </motion.label>
-                            </ScrollReveal>
-                            
-                            <ScrollReveal direction="up" delay={0.4}>
-                                <motion.button 
-                                    className='field-btn relative overflow-hidden group' 
-                                    type="submit" 
-                                    disabled={loading}
-                                    whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(0,255,255,0.5)' }}
-                                    whileTap={{ scale: 0.97 }}
-                                    transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                                >
-                                    {/* Animated background on hover */}
-                                    <motion.div
-                                        className="absolute inset-0 bg-gradient-to-r from-cyan-500/30 to-purple-500/30"
-                                        initial={{ x: '-100%' }}
-                                        whileHover={{ x: '100%' }}
-                                        transition={{ duration: 0.5 }}
-                                    />
-                                    
-                                    <span className="relative z-10">
-                                        {loading ? 'Sending...' : 'Send Message'}
-                                    </span>
-                                    
-                                    <motion.img 
-                                        src='/assets/arrow-up.png' 
-                                        alt='arrow-up' 
-                                        className='field-btn_arrow relative z-10'
-                                        animate={{ 
-                                            y: loading ? 0 : [0, -5, 0],
-                                            rotate: loading ? 360 : 0
-                                        }}
-                                        transition={{ 
-                                            y: { duration: 1.5, repeat: Infinity },
-                                            rotate: { duration: 1, repeat: loading ? Infinity : 0 }
-                                        }}
-                                    />
-                                </motion.button>
-                            </ScrollReveal>
-                        </form>
-                        
-                        {/* Decorative corner elements */}
-                        {[
-                            { top: '10px', left: '10px' },
-                            { top: '10px', right: '10px' },
-                            { bottom: '10px', left: '10px' },
-                            { bottom: '10px', right: '10px' }
-                        ].map((pos, i) => (
-                            <motion.div
-                                key={i}
-                                className="absolute w-6 h-6 border-cyan-400"
-                                style={{
-                                    ...pos,
-                                    borderWidth: pos.top && pos.left ? '2px 0 0 2px' :
-                                                pos.top && pos.right ? '2px 2px 0 0' :
-                                                pos.bottom && pos.left ? '0 0 2px 2px' :
-                                                '0 2px 2px 0'
-                                }}
-                                animate={{
-                                    opacity: [0.3, 1, 0.3],
-                                    scale: [1, 1.1, 1]
-                                }}
-                                transition={{
-                                    duration: 2,
-                                    repeat: Infinity,
-                                    delay: i * 0.2
-                                }}
-                            />
-                        ))}
-                    </motion.div>
-                </ScrollReveal>
+        {/* Contact Grid */}
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Left Side - Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
+          >
+            <div>
+              <h3 
+                className="text-3xl font-bold mb-6"
+                style={{ color: 'var(--text-primary)' }}
+              >
+                Let's Connect
+              </h3>
+              <p 
+                className="text-lg leading-relaxed"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                I'm always interested in hearing about new projects and opportunities. 
+                Whether you have a question or just want to say hi, feel free to reach out!
+              </p>
             </div>
-        </section>
-    )
-}
 
-export default Contact
+            {/* Contact Cards */}
+            <div className="space-y-4">
+              {[
+                { icon: '📧', title: 'Email', value: 'ritik.kaintura007@gmail.com', link: 'mailto:ritik.kaintura007@gmail.com' },
+                { icon: '💼', title: 'LinkedIn', value: 'Connect with me', link: '#' },
+                { icon: '🐙', title: 'GitHub', value: 'View my work', link: '#' }
+              ].map((item, index) => (
+                <motion.a
+                  key={index}
+                  href={item.link}
+                  className="block p-6 rounded-2xl backdrop-blur-sm border transition-all duration-300"
+                  style={{
+                    backgroundColor: 'var(--bg-surface)',
+                    borderColor: 'var(--accent)'
+                  }}
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="text-4xl">{item.icon}</span>
+                    <div>
+                      <h4 
+                        className="font-semibold text-lg"
+                        style={{ color: 'var(--text-primary)' }}
+                      >
+                        {item.title}
+                      </h4>
+                      <p style={{ color: 'var(--text-secondary)' }}>{item.value}</p>
+                    </div>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+
+            {/* Quick Stats */}
+            <motion.div
+              className="grid grid-cols-3 gap-4 pt-8"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              {[
+                { label: 'Response Time', value: '24h' },
+                { label: 'Projects', value: '50+' },
+                { label: 'Satisfaction', value: '100%' }
+              ].map((stat, index) => (
+                <div
+                  key={index}
+                  className="text-center p-4 rounded-xl backdrop-blur-sm border"
+                  style={{
+                    backgroundColor: 'var(--bg-surface)',
+                    borderColor: 'var(--accent)'
+                  }}
+                >
+                  <div 
+                    className="text-2xl font-bold mb-1"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
+                    {stat.value}
+                  </div>
+                  <div 
+                    className="text-xs"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Right Side - Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="p-8 rounded-3xl backdrop-blur-sm border" style={{
+                backgroundColor: 'var(--bg-surface)',
+                borderColor: 'var(--accent)'
+              }}>
+                {/* Name Input */}
+                <div className="mb-6">
+                  <label 
+                    className="block text-sm font-medium mb-2"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
+                    Your Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-xl border-2 focus:outline-none transition-all duration-300"
+                    style={{
+                      backgroundColor: 'var(--bg-surface-secondary)',
+                      borderColor: 'var(--accent)',
+                      color: 'var(--text-primary)'
+                    }}
+                    placeholder="John Doe"
+                  />
+                </div>
+
+                {/* Email Input */}
+                <div className="mb-6">
+                  <label 
+                    className="block text-sm font-medium mb-2"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-xl border-2 focus:outline-none transition-all duration-300"
+                    style={{
+                      backgroundColor: 'var(--bg-surface-secondary)',
+                      borderColor: 'var(--accent)',
+                      color: 'var(--text-primary)'
+                    }}
+                    placeholder="john@example.com"
+                  />
+                </div>
+
+                {/* Subject Input */}
+                <div className="mb-6">
+                  <label 
+                    className="block text-sm font-medium mb-2"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
+                    Subject *
+                  </label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-xl border-2 focus:outline-none transition-all duration-300"
+                    style={{
+                      backgroundColor: 'var(--bg-surface-secondary)',
+                      borderColor: 'var(--accent)',
+                      color: 'var(--text-primary)'
+                    }}
+                    placeholder="Project Inquiry"
+                  />
+                </div>
+
+                {/* Message Textarea */}
+                <div className="mb-6">
+                  <label 
+                    className="block text-sm font-medium mb-2"
+                    style={{ color: 'var(--text-primary)' }}
+                  >
+                    Message *
+                  </label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={6}
+                    className="w-full px-4 py-3 rounded-xl border-2 focus:outline-none transition-all duration-300 resize-none"
+                    style={{
+                      backgroundColor: 'var(--bg-surface-secondary)',
+                      borderColor: 'var(--accent)',
+                      color: 'var(--text-primary)'
+                    }}
+                    placeholder="Tell me about your project..."
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 px-8 rounded-xl font-semibold text-lg relative overflow-hidden"
+                  style={{
+                    backgroundColor: themeName === 'light' ? '#2563EB' : '#0EA5E9',
+                    color: '#ffffff'
+                  }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: '100%' }}
+                    transition={{ duration: 0.5 }}
+                  />
+                  <span className="relative z-10">
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </span>
+                </motion.button>
+
+                {/* Status Messages */}
+                {submitStatus === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-4 p-4 rounded-xl bg-green-500/20 border border-green-500"
+                  >
+                    <p className="text-green-400 text-center font-medium">
+                      ✓ Message sent successfully!
+                    </p>
+                  </motion.div>
+                )}
+
+                {submitStatus === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-4 p-4 rounded-xl bg-red-500/20 border border-red-500"
+                  >
+                    <p className="text-red-400 text-center font-medium">
+                      ✗ Something went wrong. Please try again.
+                    </p>
+                  </motion.div>
+                )}
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Contact;

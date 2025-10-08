@@ -27,13 +27,15 @@ export const ThemeProvider = ({ children }) => {
     },
     light: {
       name: 'light',
-      background: '#FFFFFF',
-      surface: '#F8F9FA',
-      surfaceSecondary: '#E9ECEF',
-      text: '#212529',
-      textSecondary: '#6C757D',
-      accent: '#007BFF',
-      gradient: 'from-[#007BFF] via-[#0056B3] to-[#004085]',
+      background: '#F8FAFC',
+      surface: '#FFFFFF',
+      surfaceSecondary: '#F9FAFB',
+      text: '#1E293B', // dark slate gray
+      textSecondary: '#475569', // medium gray
+      accent: '#2563EB', // royal blue
+      accentHover: '#1D4ED8',
+      gradient: 'from-[#2563EB] via-[#7C3AED] to-[#7C3AED]',
+      borderColor: '#E2E8F0',
     },
     neon: {
       name: 'neon',

@@ -107,7 +107,8 @@ const Projects = () => {
                                 
                     <div className='flex flex-col gap-5 text-white-600 my-5'>
                                     <motion.p 
-                                        className='text-white text-2xl font-semibold'
+                                        className='text-2xl font-semibold'
+                                        style={{ color: 'var(--text-primary)' }}
                                         initial={{ opacity: 0, x: -15 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: 0.05, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -151,7 +152,8 @@ const Projects = () => {
                                         ))}
                                     </div>
                                     <motion.a 
-                                        className='flex items-center gap-2 cursor-pointer text-white-600 hover:text-cyan-400 transition-colors'
+                                        className='flex items-center gap-2 cursor-pointer hover:text-cyan-400 transition-colors'
+                                        style={{ color: 'var(--text-secondary)' }}
                                         href={currentProject.href} 
                                         target="_blank" 
                                         rel="noreferrer"
@@ -202,7 +204,7 @@ const Projects = () => {
                                 >
                                     {selectedProjectIndex + 1}
                                 </motion.span>
-                                <span className="text-white/50"> / {projectCount}</span>
+                                <span style={{ color: 'var(--text-secondary)', opacity: 0.5 }}> / {projectCount}</span>
                             </motion.div>
                             
                             <motion.button 

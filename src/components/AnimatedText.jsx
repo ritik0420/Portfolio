@@ -5,6 +5,7 @@ const AnimatedText = ({
   text, 
   type = 'reveal', 
   className = '', 
+  style = {},
   delay = 0,
   speed = 0.05,
   repeat = false 
@@ -48,6 +49,7 @@ const AnimatedText = ({
     return (
       <motion.span
         className={className}
+        style={style}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay, duration: 0.5 }}
@@ -73,6 +75,7 @@ const AnimatedText = ({
     return (
       <motion.div
         className={className}
+        style={style}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay, duration: 0.8, ease: "easeOut" }}
@@ -84,7 +87,7 @@ const AnimatedText = ({
 
   if (type === 'stagger') {
     return (
-      <div className={className}>
+      <div className={className} style={style}>
         {text.split(' ').map((word, index) => (
           <motion.span
             key={index}
@@ -104,7 +107,7 @@ const AnimatedText = ({
     );
   }
 
-  return <span className={className}>{text}</span>;
+  return <span className={className} style={style}>{text}</span>;
 };
 
 export default AnimatedText;
