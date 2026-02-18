@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { workExperiences } from '../constants'
 import ScrollReveal from '../components/ScrollReveal'
+import { useTheme } from '../context/ThemeContext'
 
 const Experience = () => {
   const [selectedExperience, setSelectedExperience] = useState(0)
+  const { theme: themeName } = useTheme()
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -60,6 +62,19 @@ const Experience = () => {
   }
 
   const colors = colorSchemes[currentExp.color] || colorSchemes.cyan
+
+  /* Light theme: higher contrast for filter buttons and tags */
+  const isLight = themeName === 'light'
+  const filterBtnSelectedClass = isLight
+    ? 'bg-blue-100 border-blue-400 text-blue-900 shadow-md'
+    : `${colorSchemes[currentExp.color].border.replace('border-', 'bg-')} ${colorSchemes[currentExp.color].border} shadow-lg`
+  const filterBtnBaseClass = isLight
+    ? 'bg-slate-100/90 border-slate-300 text-slate-800 hover:border-slate-400'
+    : 'bg-black/20 border-white/10 hover:border-white/30'
+  const tagClass = isLight
+    ? 'bg-blue-100 text-blue-800 border-blue-200'
+    : colors.tag
+  const accentTextClass = isLight ? 'text-blue-600' : colors.accent
 
   return (
     <section className="min-h-screen w-full flex flex-col relative overflow-hidden c-space my-20" id="experience">
@@ -169,15 +184,13 @@ const Experience = () => {
               key={exp.id}
               onClick={() => setSelectedExperience(index)}
               className={`px-6 py-3 rounded-xl backdrop-blur-sm border transition-all duration-300 ${
-                selectedExperience === index
-                  ? `${colorSchemes[exp.color].border.replace('border-', 'bg-')} ${colorSchemes[exp.color].border} shadow-lg`
-                  : 'bg-black/20 border-white/10 hover:border-white/30'
+                selectedExperience === index ? filterBtnSelectedClass : filterBtnBaseClass
               }`}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="font-semibold text-sm md:text-base" style={{ color: 'var(--text-primary)' }}>{exp.company}</div>
-              <div className={`text-xs mt-1 ${selectedExperience === index ? 'opacity-90' : 'opacity-50'}`} style={{ color: 'var(--text-primary)' }}>
+              <div className="font-semibold text-sm md:text-base" style={{ color: isLight ? undefined : 'var(--text-primary)' }}>{exp.company}</div>
+              <div className={`text-xs mt-1 ${selectedExperience === index ? 'opacity-90' : 'opacity-70'}`} style={{ color: isLight ? undefined : 'var(--text-primary)' }}>
                 {exp.period}
               </div>
             </motion.button>
@@ -195,7 +208,9 @@ const Experience = () => {
           animate="visible"
         >
           <motion.div
-            className={`relative bg-black/20 backdrop-blur-sm border ${colors.border} ${colors.hoverBorder} rounded-3xl p-6 md:p-10 overflow-hidden group transition-all duration-500`}
+            className={`relative backdrop-blur-sm border rounded-3xl p-6 md:p-10 overflow-hidden group transition-all duration-500 ${
+              isLight ? 'bg-white/95 border-slate-200 shadow-lg shadow-slate-200/50 hover:border-slate-300' : `bg-black/20 ${colors.border} ${colors.hoverBorder}`
+            }`}
             layoutId="experience-card"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -219,7 +234,7 @@ const Experience = () => {
                     {currentExp.position}
                   </motion.h3>
                   <div className="flex flex-wrap items-center gap-3" style={{ color: 'var(--text-secondary)' }}>
-                    <span className={`text-xl font-semibold ${colors.accent}`}>{currentExp.company}</span>
+                    <span className={`text-xl font-semibold ${accentTextClass}`}>{currentExp.company}</span>
                     <span style={{ color: 'var(--text-secondary)', opacity: 0.5 }}>•</span>
                     <span>{currentExp.location}</span>
                     {currentExp.type && (
@@ -231,7 +246,7 @@ const Experience = () => {
                   </div>
                 </div>
                 <motion.div 
-                  className={`px-4 py-2 ${colors.tag} rounded-full border text-sm font-medium whitespace-nowrap`}
+                  className={`px-4 py-2 ${tagClass} rounded-full border text-sm font-medium whitespace-nowrap`}
                   whileHover={{ scale: 1.05 }}
                 >
                   {currentExp.period}
@@ -253,7 +268,7 @@ const Experience = () => {
                   href={currentExp.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 ${colors.accent} hover:underline mb-6 text-sm md:text-base`}
+                  className={`inline-flex items-center gap-2 ${accentTextClass} hover:underline mb-6 text-sm md:text-base`}
                   variants={itemVariants}
                   whileHover={{ x: 5 }}
                 >
@@ -322,10 +337,10 @@ const Experience = () => {
               <motion.div variants={itemVariants}>
                 <h4 className="font-semibold text-xl mb-4" style={{ color: 'var(--text-primary)' }}>Technologies Used:</h4>
                 <div className="flex flex-wrap gap-3">
-                  {currentExp.technologies.map((tech, idx) => (
-                    <motion.div
-                      key={idx}
-                      className={`px-4 py-2 ${colors.tag} rounded-full border text-sm font-medium`}
+                    {currentExp.technologies.map((tech, idx) => (
+                      <motion.div
+                        key={idx}
+                        className={`px-4 py-2 ${tagClass} rounded-full border text-sm font-medium`}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.05 * idx, duration: 0.3 }}

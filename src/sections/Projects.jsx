@@ -3,10 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { myProjects } from '../constants'
 import ScrollReveal from '../components/ScrollReveal'
 import LazyImage from '../components/LazyImage'
+import { useTheme } from '../context/ThemeContext'
+
 const projectCount = myProjects.length;
 
 const Projects = () => {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
+  const { theme: themeName } = useTheme();
 
   const handleNavigation = (direction) => {
     setSelectedProjectIndex((prevIndex) => {
@@ -65,7 +68,7 @@ const Projects = () => {
             <div className='grid lg:grid-cols-2 grid-cols-1 mt-12 gap-5 w-full'>
                 <ScrollReveal direction="left" duration={0.5} delay={0.1}>
                     <motion.div 
-                        className='flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200 rounded-2xl border border-white/10 bg-black/20 backdrop-blur-sm overflow-hidden group'
+                        className={`project-info-card flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl rounded-2xl border backdrop-blur-sm overflow-hidden group ${themeName === 'light' ? 'border-slate-200 bg-white/95 shadow-slate-200/50' : 'border-white/10 bg-black/20 shadow-black-200'}`}
                         whileHover={{ 
                             scale: 1.01,
                             boxShadow: '0 0 40px rgba(0,255,255,0.3)',
@@ -105,7 +108,7 @@ const Projects = () => {
                             className='w-10 h-10 shadow-sm' />
                                 </motion.div>
                                 
-                    <div className='flex flex-col gap-5 text-white-600 my-5'>
+                    <div className='flex flex-col gap-5 my-5'>
                                     <motion.p 
                                         className='text-2xl font-semibold'
                                         style={{ color: 'var(--text-primary)' }}
@@ -116,6 +119,8 @@ const Projects = () => {
                                         {currentProject.title}
                                     </motion.p>
                                     <motion.p 
+                                        className='project-desc'
+                                        style={{ color: 'var(--text-secondary)' }}
                                         initial={{ opacity: 0, x: -15 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: 0.1, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -123,6 +128,8 @@ const Projects = () => {
                                         {currentProject.desc}
                                     </motion.p>
                                     <motion.p 
+                                        className='project-subdesc'
+                                        style={{ color: 'var(--text-secondary)' }}
                                         initial={{ opacity: 0, x: -15 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: 0.15, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -152,7 +159,7 @@ const Projects = () => {
                                         ))}
                                     </div>
                                     <motion.a 
-                                        className='flex items-center gap-2 cursor-pointer hover:text-cyan-400 transition-colors'
+                                        className='project-link flex items-center gap-2 cursor-pointer transition-colors'
                                         style={{ color: 'var(--text-secondary)' }}
                                         href={currentProject.href} 
                                         target="_blank" 
@@ -160,7 +167,7 @@ const Projects = () => {
                                         whileHover={{ scale: 1.05, x: 5 }}
                                         whileTap={{ scale: 0.95 }}
                                     >
-                                        <p>Check Live Site</p>
+                                        <p className={themeName === 'light' ? 'text-blue-700 font-medium' : ''}>Check Live Site</p>
                                         <motion.img 
                                             src='/assets/arrow-up.png'
                                             className='w-3 h-3' 
@@ -190,13 +197,13 @@ const Projects = () => {
                             
                             {/* Project counter with animation */}
                             <motion.div
-                                className="flex items-center gap-2"
+                                className="project-counter flex items-center gap-2"
                                 initial={{ opacity: 0, scale: 0.5 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.6 }}
                             >
                                 <motion.span 
-                                    className="text-cyan-400 font-bold text-lg"
+                                    className={`font-bold text-lg ${themeName === 'light' ? 'text-blue-600' : 'text-cyan-400'}`}
                                     key={selectedProjectIndex}
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
@@ -204,7 +211,7 @@ const Projects = () => {
                                 >
                                     {selectedProjectIndex + 1}
                                 </motion.span>
-                                <span style={{ color: 'var(--text-secondary)', opacity: 0.5 }}> / {projectCount}</span>
+                                <span style={{ color: 'var(--text-secondary)' }}> / {projectCount}</span>
                             </motion.div>
                             
                             <motion.button 

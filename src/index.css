@@ -76,9 +76,9 @@ body {
   --bg-surface: #ffffff;
   --bg-surface-secondary: #f9fafb;
   
-  /* Typography - excellent readability */
-  --text-primary: #1e293b; /* dark slate gray */
-  --text-secondary: #475569; /* medium gray */
+  /* Typography - high contrast for readability */
+  --text-primary: #0f172a; /* slate-900 - strong contrast */
+  --text-secondary: #334155; /* slate-700 - clearly visible */
   
   /* Accent colors */
   --accent: #2563eb; /* royal blue */
@@ -585,13 +585,13 @@ body {
   filter: invert(1) brightness(2);
 }
 
-/* Nav links */
+/* Nav links - darker for visibility on light background */
 .theme-light .nav-li_a {
-  color: #475569;
+  color: #334155;
 }
 
 .theme-light .nav-li_a:hover {
-  color: #2563eb;
+  color: #1d4ed8;
 }
 
 .theme-light .nav-underline {
@@ -630,7 +630,7 @@ body {
 
 .theme-light footer p,
 .theme-light footer a {
-  color: #475569;
+  color: #334155;
 }
 
 .theme-light footer a:hover {
@@ -648,7 +648,7 @@ body {
 }
 
 .theme-light p {
-  color: #475569;
+  color: #334155;
 }
 
 /* Hover lift effect for light theme cards */
@@ -674,11 +674,11 @@ body {
 
 /* Light theme navbar when scrolled */
 .theme-light .nav-li_a-scrolled {
-  color: #1e293b;
+  color: #0f172a;
 }
 
 .theme-light .nav-li_a-scrolled:hover {
-  color: #2563eb;
+  color: #1d4ed8;
 }
 
 /* Ensure cards have good contrast */
@@ -695,6 +695,30 @@ body {
 .theme-light .backdrop-blur-enhanced {
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+/* Project info card - light theme: light background, dark text */
+.theme-light .project-info-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.theme-light .project-info-card .project-desc,
+.theme-light .project-info-card .project-subdesc {
+  color: #334155 !important;
+}
+
+.theme-light .project-info-card .project-link {
+  color: #1d4ed8 !important;
+}
+
+.theme-light .project-info-card .project-link:hover {
+  color: #2563eb !important;
+}
+
+.theme-light .project-info-card .project-counter {
+  color: #334155 !important;
 }
 
 .waving-hand {

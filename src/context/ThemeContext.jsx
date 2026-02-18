@@ -30,8 +30,8 @@ export const ThemeProvider = ({ children }) => {
       background: '#F8FAFC',
       surface: '#FFFFFF',
       surfaceSecondary: '#F9FAFB',
-      text: '#1E293B', // dark slate gray
-      textSecondary: '#475569', // medium gray
+      text: '#0F172A', // slate-900 – high contrast
+      textSecondary: '#334155', // slate-700 – clearly visible
       accent: '#2563EB', // royal blue
       accentHover: '#1D4ED8',
       gradient: 'from-[#2563EB] via-[#7C3AED] to-[#7C3AED]',

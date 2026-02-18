@@ -307,12 +307,14 @@ const About = () => {
                                     Frontend Technologies
                                 </h3>
                                 <p className="leading-relaxed text-base md:text-lg" style={{ color: 'var(--text-secondary)' }}>
-                                    Expert in <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>React.js</span> and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Next.js</span> with <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>React Router</span> for navigation. Proficient in <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Tailwind CSS</span>, <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Material-UI</span>, and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Framer Motion</span> for stunning interfaces.
+                                    Expert in <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>React.js</span>, <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Next.js</span>, and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>JavaScript (ES6+)</span> with <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>React Router</span>. Proficient in <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Tailwind CSS</span>, <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Material UI</span>, <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Framer Motion</span>, and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Chart.js</span> for stunning interfaces.
                                 </p>
                                 <div className="flex flex-wrap gap-2 mt-3">
                                     <span className="px-2 py-1 text-xs rounded-full border" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}>React.js</span>
                                     <span className="px-2 py-1 text-xs rounded-full border" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}>Next.js</span>
                                     <span className="px-2 py-1 text-xs rounded-full border" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}>Tailwind CSS</span>
+                                    <span className="px-2 py-1 text-xs rounded-full border" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}>Material UI</span>
+                                    <span className="px-2 py-1 text-xs rounded-full border" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}>Framer Motion</span>
                                     <span className="px-2 py-1 text-xs rounded-full border" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}>Chart.js</span>
                                 </div>
                             </div>
@@ -362,12 +364,12 @@ const About = () => {
                                     Backend & Server Technologies
                                 </h3>
                                 <p className="leading-relaxed text-base md:text-lg" style={{ color: 'var(--text-secondary)' }}>
-                                    Experienced with <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Node.js</span> and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Express.js</span> for building robust APIs. Skilled in <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>JWT Authentication</span>, <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>MongoDB</span> database management, and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>REST API</span> development.
+                                    Experienced with <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Node.js</span> and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Express.js</span> for building robust <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>RESTful APIs</span>. Skilled in <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>JWT Authentication</span>, <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>MongoDB</span> and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>MongoDB Atlas</span> database management.
                                 </p>
                                 <div className="flex flex-wrap gap-2 mt-3">
                                     <span className="px-2 py-1 text-xs rounded-full border" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}>Node.js</span>
                                     <span className="px-2 py-1 text-xs rounded-full border" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}>Express.js</span>
-                                    <span className="px-2 py-1 text-xs rounded-full border" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}>MongoDB</span>
+                                    <span className="px-2 py-1 text-xs rounded-full border" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}>MongoDB Atlas</span>
                                     <span className="px-2 py-1 text-xs rounded-full border" style={{ backgroundColor: 'var(--bg-surface-secondary)', color: 'var(--text-primary)', borderColor: 'var(--accent)' }}>JWT Auth</span>
                                 </div>
                                 <motion.div 
@@ -425,7 +427,7 @@ const About = () => {
                                     DevOps & Deployment
                                 </h3>
                                 <p className="leading-relaxed text-base md:text-lg" style={{ color: 'var(--text-secondary)' }}>
-                                    Proficient in <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Docker</span> containerization and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Traefik</span> reverse proxy. Experienced with <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>VPS hosting</span> on Hostinger and EasyPanel, including <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>SSL/TLS</span> configuration and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>DNS management</span>.
+                                    Proficient in <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Docker</span> containerization and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Traefik</span> reverse proxy. Experienced with <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>VPS hosting</span> (Hostinger, EasyPanel), <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>SSL/TLS</span>, and <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Domain & DNS management</span>.
                                 </p>
                                 
                                 {/* DevOps skills */}

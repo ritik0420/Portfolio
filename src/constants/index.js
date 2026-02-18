@@ -29,46 +29,61 @@ export const navLinks = [
 export const workExperiences = [
   {
     id: 1,
-    company: 'Paradise Yatra',
-    position: 'Full Stack Developer',
+    company: 'InsureTech Skills',
+    position: 'Full Stack Developer & Trainer',
     location: 'Dehradun, India',
-    period: 'Aug 2025 - Present',
-    description: 'A travel company that offers complete pack of services to traveler\'s paradise is best travel & tour company at every tour platform.',
+    period: 'Dec 2025 – Present',
+    description: 'Redesigned and redeveloped the company\'s existing WordPress website into a full-stack web application. Delivering hands-on training and live sessions on Frontend, Backend, and Full Stack development.',
     achievements: [
-      'Built a travel website using Next.js, Node.js, Express, MongoDB, and Docker',
-      'Developed secure dashboard with authentication, content management, and SEO tools',
-      'Created 50+ REST APIs with JWT auth, error handling, and MongoDB Atlas integration',
-      'Improved interface with Framer Motion, responsive layouts, reusable components, and accessibility fixes',
-      'Added smart search, calendar picker, rich text editor, and image proxy handling',
-      'Reduced bundle size by ~60% with lazy loading, code splitting, caching, and optimized API search',
-      'Managed DNS, SSL, VPS deployment, Docker, Traefik routing, and domain mapping'
+      'Redesigned and redeveloped the company\'s WordPress site into a full-stack app using React.js, Next.js, Node.js, MongoDB, and REST APIs',
+      'Built and customized websites from scratch, including WordPress-based solutions',
+      'Collaborated with UK clients, gathering requirements and contributing to a MERN-based LMS platform',
+      'Supported ongoing development, bug fixes, and feature enhancements for live projects',
+      'Delivered hands-on training and live sessions on Frontend, Backend, and Full Stack development'
     ],
-    technologies: ['Next.js', 'Node.js', 'Express', 'MongoDB', 'Docker', 'Traefik', 'JWT', 'Framer Motion'],
-    liveUrl: 'https://paradiseyatra.com',
+    technologies: ['React.js', 'Next.js', 'Node.js', 'MongoDB', 'REST APIs', 'MERN', 'WordPress'],
     color: 'cyan'
   },
   {
     id: 2,
-    company: 'Delonix Travel Services',
+    company: 'Paradise Yatra',
+    position: 'Full Stack Developer',
+    location: 'Dehradun, India',
+    period: 'Aug 2025 – Oct 2025',
+    description: 'Full-stack travel platform with secure admin panel, 50+ REST APIs, and deployment on VPS using Docker and Traefik.',
+    achievements: [
+      'Built and maintained a full-stack travel platform using Next.js, Node.js, Express, MongoDB, and Docker',
+      'Developed a secure admin panel with authentication, CMS, and SEO tools',
+      'Designed and implemented 50+ REST APIs with JWT authentication, validation, and MongoDB Atlas',
+      'Enhanced UI/UX using Framer Motion, responsive design, and reusable components',
+      'Implemented smart search, calendar picker, rich text editor, and image proxy handling',
+      'Optimized performance through lazy loading, code splitting, and caching',
+      'Deployed applications on VPS using Docker, Traefik, SSL, DNS, and domain mapping'
+    ],
+    technologies: ['Next.js', 'Node.js', 'Express', 'MongoDB', 'Docker', 'Traefik', 'JWT', 'Framer Motion'],
+    liveUrl: 'https://paradiseyatra.com',
+    color: 'purple'
+  },
+  {
+    id: 3,
+    company: 'Delonix Travels',
     position: 'MERN Stack Developer',
     location: 'Dehradun, India',
-    period: 'May 2025 - Aug 2025',
-    type: 'Part-time',
-    description: 'Delonix Travel Services is a tour and travel company which provides flight ticket booking through the NDC (New Distribution Capability) based system along with hotel and Car booking facility.',
+    period: 'May 2025 – Aug 2025',
+    description: 'CRM dashboards, TripBazaar.in frontend refactoring, and deployment on Hostinger VPS with Docker and EasyPanel.',
     achievements: [
-      'Designed interactive dashboard with analytics, charts, and responsive layouts',
-      'Integrated secure login/auth with API calls and global state handling',
-      'Refactored frontend: dynamic API integration, lazy loading, modularized components',
-      'Improved UI/UX with sticky navbar, calendar fixes, responsive banners, and advanced filters',
-      'Added features: GST fix, child/room selection, meals option, maps integration, invoice/voucher generation',
-      'Hosted apps on Hostinger VPS with Docker & EasyPanel',
-      'Used Traefik reverse proxy with multi-stage Docker builds, versioned Docker Hub images',
-      'Configured SSL, HTTPS enforcement, DNS records, domain mapping, and global propagation'
+      'Developed CRM dashboards with responsive layouts, analytics, and charts',
+      'Implemented secure authentication, API integrations, and global state management',
+      'Worked on TripBazaar.in frontend, refactoring code with modular components and API-driven architecture',
+      'Improved UI/UX including responsive layouts, advanced filters, calendar fixes, and maps integration',
+      'Implemented booking-related features: GST handling, invoice/voucher generation, room/meal selection',
+      'Assisted in deployment on Hostinger VPS using Docker and EasyPanel',
+      'Configured Traefik reverse proxy, SSL/HTTPS, domain mapping, DNS, and Docker Hub images'
     ],
     technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'Docker', 'Traefik', 'Chart.js', 'Material-UI'],
     projects: ['CRM Frontend', 'TripBazaar.in'],
     liveUrl: 'https://tripbazaar.in/',
-    color: 'purple'
+    color: 'pink'
   }
 ];
   

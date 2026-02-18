@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
 import { navLinks } from '../constants'
 import ThemeToggle from '../components/ThemeToggle'
+import { useTheme } from '../context/ThemeContext'
 
 const NavItems = ({ onClick = () => {}, isScrolled = false }) => (
   <ul className="nav-ul">
@@ -30,6 +31,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const { theme } = useTheme();
   
   const toggleMenu = () => setIsOpen((prevIsOpen => !prevIsOpen));
 
@@ -119,9 +121,11 @@ const Navbar = () => {
             <motion.button 
               onClick={toggleMenu} 
               className={`relative p-2 rounded-lg transition-all duration-300 sm:hidden flex ${
-                isScrolled 
-                  ? 'bg-black/30 border border-cyan-400/30 hover:border-cyan-400/60' 
-                  : 'bg-black/20 border border-white/20 hover:border-white/40'
+                theme === 'light'
+                  ? 'bg-slate-200/80 border border-slate-300 hover:border-slate-400'
+                  : isScrolled 
+                    ? 'bg-black/30 border border-cyan-400/30 hover:border-cyan-400/60' 
+                    : 'bg-black/20 border border-white/20 hover:border-white/40'
               }`}
               aria-label='Toggle Menu'
               whileHover={{ scale: 1.05 }}
@@ -130,7 +134,7 @@ const Navbar = () => {
               <motion.img 
                 src={isOpen ? "assets/close.svg" : "assets/menu.svg"} 
                 alt="toggle" 
-                className='w-6 h-6 filter brightness-0 invert'
+                className={`w-6 h-6 ${theme === 'light' ? 'brightness-0' : 'filter brightness-0 invert'}`}
                 animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={{ duration: 0.3 }}
               />
