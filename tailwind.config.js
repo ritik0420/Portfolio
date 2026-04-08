@@ -4,29 +4,31 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        generalsans: ['General Sans', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
       },
       colors: {
-        black: {
-          DEFAULT: '#000',
-          100: '#010103',
-          200: '#0E0E10',
-          300: '#1C1C21',
-          500: '#3A3A49',
-          600: '#1A1A1A',
+        dark: {
+          DEFAULT: '#0f0f0f',
+          50: '#141414',
+          100: '#1a1a1a',
+          200: '#242424',
         },
-        white: {
-          DEFAULT: '#FFFFFF',
-          800: '#E4E4E6',
-          700: '#D6D9E9',
-          600: '#AFB0B6',
-          500: '#62646C',
+        brand: {
+          deep: '#7f1d1d',
+          bright: '#ef4444',
+          glow: 'rgba(239, 68, 68, 0.45)',
         },
       },
+      boxShadow: {
+        glow: '0 0 60px -12px rgba(239, 68, 68, 0.35)',
+        'glow-sm': '0 0 40px -8px rgba(239, 68, 68, 0.25)',
+        card: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+      },
       backgroundImage: {
-        terminal: "url('/assets/terminal.png')",
+        'gradient-radial-red': 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(127, 29, 29, 0.45), transparent 55%)',
+        'gradient-mesh': 'linear-gradient(135deg, #0f0f0f 0%, #1a0a0a 40%, #0f0f0f 100%)',
       },
     },
   },
   plugins: [],
-};
+}
