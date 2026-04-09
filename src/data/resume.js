@@ -14,8 +14,8 @@ export const profile = {
   email: 'ritik.kaintura007@gmail.com',
   phone: '+91-9068402175',
   social: {
-    github: 'https://github.com/',
-    linkedin: 'https://www.linkedin.com/in/',
+    github: 'https://github.com/ritik0420',
+    linkedin: 'https://www.linkedin.com/in/ritik-kaintura-27a564117/',
     twitter: 'https://twitter.com/',
   },
   cvPath: '/resume.pdf',
@@ -24,7 +24,7 @@ export const profile = {
 export const aboutIntro = {
   greeting: "Hi, I'm Ritik",
   summary:
-    'Full-stack developer with expertise in modern web technologies. I specialize in building scalable, responsive applications with a focus on performance and user experience.',
+    'Full-Stack Developer specializing in building scalable, high-performance web applications using modern technologies like React, Node.js, and MongoDB. I focus on creating seamless user experiences and production-ready solutions.',
 }
 
 /** Expertise boxes for the About section (titles + body + tag pills). */
@@ -125,8 +125,7 @@ export const projects = [
     url: 'https://quickbites-three.vercel.app',
     source: 'https://github.com/',
     tags: ['React', 'Tailwind CSS', 'Vite'],
-    image:
-      'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=80',
+    image: '/assets/projects/quickbites.png',
   },
   {
     title: 'Imagify',
@@ -135,8 +134,16 @@ export const projects = [
     url: 'https://imagify-8z61.vercel.app',
     source: 'https://github.com/',
     tags: ['React', 'OpenAI API', 'Tailwind CSS'],
-    image:
-      'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80',
+    image: '/assets/projects/imagify.png',
+  },
+  {
+    title: 'Aether (Gemini Clone)',
+    description:
+      'Gemini-inspired AI chat interface with a modern responsive layout, focused on clean interactions and smooth frontend experience.',
+    url: 'https://gemini-clone-pink-six.vercel.app/',
+    source: 'https://github.com/',
+    tags: ['React', 'AI UI', 'Frontend'],
+    image: '/assets/projects/aether.png',
   },
   {
     title: 'Chatopia',
@@ -145,25 +152,32 @@ export const projects = [
     url: 'https://chatopia-frontend-black.vercel.app',
     source: 'https://github.com/',
     tags: ['React', 'WebSockets', 'Tailwind CSS'],
-    image:
-      'https://images.unsplash.com/photo-1676299080923-e59f7ae607ef?auto=format&fit=crop&w=1200&q=80',
+    image: '/assets/projects/chatopia.png',
   },
   {
-    title: 'Developer Portfolio',
+    title: 'Streetwear Store Template',
     description:
-      'Personal showcase with clean navigation, project highlights, and performance-focused layout — built to present skills and experience clearly.',
-    url: 'https://portfolio-mu-lemon-96.vercel.app',
+      'Frontend-only online streetwear store template featuring collection sections, featured products, best sellers, and brand-focused landing design.',
+    url: 'https://street-wear-sigma.vercel.app/',
     source: 'https://github.com/',
-    tags: ['React', 'Tailwind CSS', 'Vercel'],
-    image:
-      'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80',
+    tags: ['React', 'Ecommerce UI', 'Frontend Only'],
+    image: '/assets/projects/streetwear-store-template.png',
+  },
+  {
+    title: 'Medical Translator',
+    description:
+      'Medical translation web app concept for translating healthcare-related text with a simple interface built for quick, readable output.',
+    url: 'https://medical-translator-sandy.vercel.app/',
+    source: 'https://github.com/',
+    tags: ['React', 'Healthcare', 'Translation'],
+    image: '/assets/projects/medical-translator.png',
   },
 ]
 
 export const stats = [
-  { value: '3+', label: 'Years Experience' },
-  { value: '4+', label: 'Live Projects' },
-  { value: '50+', label: 'APIs Shipped' },
+  { value: '1+', label: 'Years Experience' },
+  { value: '5+', label: 'Live Projects' },
+  { value: '50+', label: 'APIs & Features Built' },
 ]
 
 export const education = [

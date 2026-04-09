@@ -35,9 +35,7 @@ export default function Navbar() {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 md:px-8">
         <button type="button" onClick={() => go('home')} className="flex items-center gap-2" aria-label="Home">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-red-500/30 bg-gradient-to-br from-brand-deep/80 to-dark-100 font-bold text-brand-bright shadow-glow-sm">
-            RK
-          </span>
+          
           <span className="hidden text-lg font-semibold tracking-tight sm:block">Ritik Kaintura</span>
         </button>
         <nav className="hidden items-center gap-4 lg:gap-7 xl:gap-8 md:flex">
