@@ -89,7 +89,7 @@ export const experience = [
     link: 'https://insuretechskills.tech',
     highlights: [
       'Redeveloped the company WordPress site into a full-stack app with React, Next.js, Node.js, MongoDB, and REST APIs.',
-      'Collaborated with UK clients on requirements for a MERN-based LMS platform.',
+      'Collaborated  with UK clients on requirements for a MERN-based LMS platform.',
       'Delivered hands-on training and live sessions on frontend, backend, and full stack development.',
     ],
   },
