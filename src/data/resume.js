@@ -86,6 +86,7 @@ export const experience = [
     company: 'InsureTech Skills',
     period: 'Dec 2025 — Present',
     location: 'Dehradun, India',
+    link: 'https://insuretechskills.tech',
     highlights: [
       'Redeveloped the company WordPress site into a full-stack app with React, Next.js, Node.js, MongoDB, and REST APIs.',
       'Collaborated with UK clients on requirements for a MERN-based LMS platform.',
